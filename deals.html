@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deals & Promotions - ShopMax</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Deals Page Specific Styles */
+        .deals-hero {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .deals-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🎉</text></svg>') repeat;
+            opacity: 0.1;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(100px); }
+        }
+
+        .deals-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .deals-hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .deals-hero p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .countdown-timer {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+        }
+
+        .countdown-timer h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .timer-display {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .timer-unit {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .timer-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .timer-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .deals-section {
+            padding: 3rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            color: var(--primary-black);
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--medium-gray);
+            font-size: 1.1rem;
+        }
+
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .deal-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .deal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .deal-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--danger-color);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            z-index: 2;
+        }
+
+        .deal-image {
+            width: 100%;
+            height: 200px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--medium-gray);
+            position: relative;
+        }
+
+        .deal-discount {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--success-color);
+            color: var(--white);
+            padding: 0.5rem;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .deal-info {
+            padding: 1.5rem;
+        }
+
+        .deal-title {
+            color: var(--primary-black);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .deal-description {
+            color: var(--medium-gray);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .deal-pricing {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .deal-current-price {
+            color: var(--primary-brown);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .deal-original-price {
+            color: var(--medium-gray);
+            text-decoration: line-through;
+            font-size: 1.1rem;
+        }
+
+        .deal-savings {
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .deal-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--primary-brown);
+            color: var(--white);
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-brown);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--primary-black);
+            border: 2px solid var(--medium-gray);
+        }
+
+        .btn-secondary:hover {
+            background: var(--medium-gray);
+            color: var(--white);
+        }
+
+        .flash-sale-section {
+            background: linear-gradient(135deg, var(--danger-color) 0%, #ff4757 100%);
+            color: var(--white);
+            padding: 3rem 0;
+            margin: 3rem 0;
+        }
+
+        .flash-sale-content {
+            text-align: center;
+        }
+
+        .flash-sale h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .flash-sale p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .flash-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .flash-product {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .flash-product:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .flash-product-image {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+        }
+
+        .flash-product-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .flash-product-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .flash-product-btn {
+            background: var(--white);
+            color: var(--danger-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .flash-product-btn:hover {
+            background: var(--light-gray);
+            transform: translateY(-2px);
+        }
+
+        .promo-banner {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .promo-banner h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .promo-banner p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .promo-code {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .promo-code:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .deal-filters {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 25px;
+            background: var(--white);
+            color: var(--primary-black);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .filter-tab.active {
+            background: var(--primary-brown);
+            color: var(--white);
+            border-color: var(--primary-brown);
+        }
+
+        .filter-tab:hover {
+            border-color: var(--primary-brown);
+        }
+
+        @media (max-width: 768px) {
+            .deals-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .timer-display {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .timer-unit {
+                min-width: 60px;
+                padding: 0.75rem;
+            }
+
+            .timer-number {
+                font-size: 1.5rem;
+            }
+
+            .deals-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-tabs {
+                justify-content: center;
+            }
+
+            .flash-products {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1><a href="index.html" style="color: var(--primary-brown); text-decoration: none;">ShopMax</a></h1>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products..." id="searchInput">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <a href="login.html" class="auth-link">Login</a>
+                    <a href="register.html" class="auth-link">Register</a>
+                    <div class="wishlist-icon" onclick="wishlistSidebar.open()">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count" id="wishlistCount">0</span>
+                    </div>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="cj-products.html">CJ Dropshipping</a></li>
+                    <li><a href="bundles.html">Bundles</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="deals.html" class="active">Deals</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Deals Hero Section -->
+    <section class="deals-hero">
+        <div class="container">
+            <div class="deals-hero-content">
+                <h1>🎉 Amazing Deals & Promotions</h1>
+                <p>Don't miss out on these incredible offers! Limited time deals with massive savings on your favorite products.</p>
+                
+                <div class="countdown-timer">
+                    <h3>Flash Sale Ends In:</h3>
+                    <div class="timer-display">
+                        <div class="timer-unit">
+                            <span class="timer-number" id="hours">23</span>
+                            <span class="timer-label">Hours</span>
+                        </div>
+                        <div class="timer-unit">
+                            <span class="timer-number" id="minutes">59</span>
+                            <span class="timer-label">Minutes</span>
+                        </div>
+                        <div class="timer-unit">
+                            <span class="timer-number" id="seconds">59</span>
+                            <span class="timer-label">Seconds</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deal Filters -->
+    <section class="deal-filters-section">
+        <div class="container">
+            <div class="deal-filters">
+                <div class="filter-tabs">
+                    <div class="filter-tab active" onclick="filterDeals('all')">All Deals</div>
+                    <div class="filter-tab" onclick="filterDeals('flash')">Flash Sales</div>
+                    <div class="filter-tab" onclick="filterDeals('daily')">Daily Deals</div>
+                    <div class="filter-tab" onclick="filterDeals('clearance')">Clearance</div>
+                    <div class="filter-tab" onclick="filterDeals('bundle')">Bundle Deals</div>
+                    <div class="filter-tab" onclick="filterDeals('new')">New Arrivals</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Banner -->
+    <section class="promo-banner-section">
+        <div class="container">
+            <div class="promo-banner">
+                <h3>🎁 Special Offer!</h3>
+                <p>Get an extra 20% off on all electronics with code:</p>
+                <div class="promo-code" onclick="copyPromoCode()">SAVE20NOW</div>
+                <p><small>Valid until end of month. Cannot be combined with other offers.</small></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flash Sale Section -->
+    <section class="flash-sale-section">
+        <div class="container">
+            <div class="flash-sale-content">
+                <h2>⚡ Flash Sale - Up to 70% Off!</h2>
+                <p>Limited time offers on selected items. Don't wait - these deals won't last!</p>
+                
+                <div class="flash-products">
+                    <div class="flash-product">
+                        <div class="flash-product-image">📱</div>
+                        <div class="flash-product-title">Smartphone</div>
+                        <div class="flash-product-price">$199 <small>(was $399)</small></div>
+                        <button class="flash-product-btn" onclick="addToCart('flash-1')">Add to Cart</button>
+                    </div>
+                    <div class="flash-product">
+                        <div class="flash-product-image">🎧</div>
+                        <div class="flash-product-title">Wireless Headphones</div>
+                        <div class="flash-product-price">$49 <small>(was $99)</small></div>
+                        <button class="flash-product-btn" onclick="addToCart('flash-2')">Add to Cart</button>
+                    </div>
+                    <div class="flash-product">
+                        <div class="flash-product-image">⌚</div>
+                        <div class="flash-product-title">Smart Watch</div>
+                        <div class="flash-product-price">$79 <small>(was $159)</small></div>
+                        <button class="flash-product-btn" onclick="addToCart('flash-3')">Add to Cart</button>
+                    </div>
+                    <div class="flash-product">
+                        <div class="flash-product-image">💻</div>
+                        <div class="flash-product-title">Laptop</div>
+                        <div class="flash-product-price">$599 <small>(was $999)</small></div>
+                        <button class="flash-product-btn" onclick="addToCart('flash-4')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Deals Section -->
+    <section class="deals-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>🔥 Daily Deals</h2>
+                <p>Fresh deals updated every day. Check back regularly for new offers!</p>
+            </div>
+            
+            <div class="deals-grid" id="dailyDeals">
+                <!-- Daily deals will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Bundle Deals Section -->
+    <section class="deals-section" style="background: var(--light-gray);">
+        <div class="container">
+            <div class="section-header">
+                <h2>📦 Bundle Deals</h2>
+                <p>Save more when you buy together. These bundles offer incredible value!</p>
+            </div>
+            
+            <div class="deals-grid" id="bundleDeals">
+                <!-- Bundle deals will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Clearance Section -->
+    <section class="deals-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>🏷️ Clearance Sale</h2>
+                <p>Last chance to grab these items at unbeatable prices!</p>
+            </div>
+            
+            <div class="deals-grid" id="clearanceDeals">
+                <!-- Clearance deals will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ShopMax</h3>
+                    <p>Your trusted e-commerce platform for quality products at great prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="returns.html">Returns</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="support.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ShopMax. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: $<span id="cartTotal">0.00</span></strong>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script>
+        // Initialize deals page
+        document.addEventListener('DOMContentLoaded', function() {
+            startCountdownTimer();
+            loadDailyDeals();
+            loadBundleDeals();
+            loadClearanceDeals();
+        });
+
+        // Countdown timer
+        function startCountdownTimer() {
+            // Set end time (24 hours from now)
+            const endTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+            
+            const timer = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = endTime - now;
+                
+                if (distance < 0) {
+                    clearInterval(timer);
+                    document.getElementById('hours').innerHTML = "00";
+                    document.getElementById('minutes').innerHTML = "00";
+                    document.getElementById('seconds').innerHTML = "00";
+                    return;
+                }
+                
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+            }, 1000);
+        }
+
+        // Load daily deals
+        function loadDailyDeals() {
+            const deals = [
+                {
+                    id: 'deal-1',
+                    title: 'Wireless Bluetooth Headphones',
+                    description: 'Premium quality headphones with noise cancellation',
+                    originalPrice: 99.99,
+                    currentPrice: 59.99,
+                    discount: 40,
+                    image: '🎧',
+                    badge: 'Daily Deal'
+                },
+                {
+                    id: 'deal-2',
+                    title: 'Smart Fitness Watch',
+                    description: 'Track your fitness with this advanced smartwatch',
+                    originalPrice: 199.99,
+                    currentPrice: 129.99,
+                    discount: 35,
+                    image: '⌚',
+                    badge: 'Limited Time'
+                },
+                {
+                    id: 'deal-3',
+                    title: 'Home Garden Tool Set',
+                    description: 'Complete set of gardening tools for your home',
+                    originalPrice: 79.99,
+                    currentPrice: 49.99,
+                    discount: 38,
+                    image: '🌱',
+                    badge: 'Popular'
+                },
+                {
+                    id: 'deal-4',
+                    title: 'Premium Cotton T-Shirt',
+                    description: 'Comfortable cotton t-shirt in various colors',
+                    originalPrice: 29.99,
+                    currentPrice: 19.99,
+                    discount: 33,
+                    image: '👕',
+                    badge: 'Best Seller'
+                }
+            ];
+
+            renderDeals('dailyDeals', deals);
+        }
+
+        // Load bundle deals
+        function loadBundleDeals() {
+            const bundles = [
+                {
+                    id: 'bundle-1',
+                    title: 'Smartphone Essentials Bundle',
+                    description: 'Phone + Case + Screen Protector + Charger',
+                    originalPrice: 149.97,
+                    currentPrice: 99.99,
+                    discount: 33,
+                    image: '📱',
+                    badge: 'Bundle Deal'
+                },
+                {
+                    id: 'bundle-2',
+                    title: 'Home Office Bundle',
+                    description: 'Desk + Chair + Lamp + Organizer',
+                    originalPrice: 299.97,
+                    currentPrice: 199.99,
+                    discount: 33,
+                    image: '💻',
+                    badge: 'Work From Home'
+                }
+            ];
+
+            renderDeals('bundleDeals', bundles);
+        }
+
+        // Load clearance deals
+        function loadClearanceDeals() {
+            const clearance = [
+                {
+                    id: 'clearance-1',
+                    title: 'Vintage Leather Jacket',
+                    description: 'Classic leather jacket - last few pieces',
+                    originalPrice: 199.99,
+                    currentPrice: 79.99,
+                    discount: 60,
+                    image: '🧥',
+                    badge: 'Clearance'
+                },
+                {
+                    id: 'clearance-2',
+                    title: 'Retro Gaming Console',
+                    description: 'Classic gaming console with 100+ games',
+                    originalPrice: 149.99,
+                    currentPrice: 59.99,
+                    discount: 60,
+                    image: '🎮',
+                    badge: 'Last Chance'
+                }
+            ];
+
+            renderDeals('clearanceDeals', clearance);
+        }
+
+        // Render deals
+        function renderDeals(containerId, deals) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = deals.map(deal => `
+                <div class="deal-card">
+                    <div class="deal-badge">${deal.badge}</div>
+                    <div class="deal-image">
+                        ${deal.image}
+                        <div class="deal-discount">-${deal.discount}%</div>
+                    </div>
+                    <div class="deal-info">
+                        <h3 class="deal-title">${deal.title}</h3>
+                        <p class="deal-description">${deal.description}</p>
+                        <div class="deal-pricing">
+                            <span class="deal-current-price">$${deal.currentPrice}</span>
+                            <span class="deal-original-price">$${deal.originalPrice}</span>
+                            <span class="deal-savings">Save $${(deal.originalPrice - deal.currentPrice).toFixed(2)}</span>
+                        </div>
+                        <div class="deal-actions">
+                            <button class="btn btn-primary" onclick="addToCart('${deal.id}')">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="btn btn-secondary" onclick="addToWishlist('${deal.id}')">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter deals
+        function filterDeals(type) {
+            // Update active tab
+            document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Show/hide sections based on filter
+            const sections = {
+                'all': ['dailyDeals', 'bundleDeals', 'clearanceDeals'],
+                'flash': ['flash-sale-section'],
+                'daily': ['dailyDeals'],
+                'clearance': ['clearanceDeals'],
+                'bundle': ['bundleDeals'],
+                'new': ['dailyDeals']
+            };
+
+            // Hide all sections first
+            document.querySelectorAll('.deals-section, .flash-sale-section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show selected sections
+            if (sections[type]) {
+                sections[type].forEach(sectionId => {
+                    const section = document.getElementById(sectionId) || document.querySelector(`.${sectionId}`);
+                    if (section) {
+                        section.style.display = 'block';
+                    }
+                });
+            }
+        }
+
+        // Copy promo code
+        function copyPromoCode() {
+            const code = 'SAVE20NOW';
+            navigator.clipboard.writeText(code).then(() => {
+                showMessage('Promo code copied to clipboard!', 'success');
+            }).catch(() => {
+                showMessage('Could not copy promo code', 'error');
+            });
+        }
+
+        // Add to wishlist
+        function addToWishlist(productId) {
+            if (window.wishlistSystem) {
+                window.wishlistSystem.addToWishlist(productId);
+            } else {
+                showMessage('Wishlist system not available', 'error');
+            }
+        }
+
+        // Show message function
+        function showMessage(message, type) {
+            // Create message element
+            const messageEl = document.createElement('div');
+            messageEl.className = `message message-${type}`;
+            messageEl.textContent = message;
+            messageEl.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 2rem;
+                border-radius: 5px;
+                color: white;
+                font-weight: bold;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            if (type === 'success') {
+                messageEl.style.background = 'var(--success-color)';
+            } else if (type === 'error') {
+                messageEl.style.background = 'var(--danger-color)';
+            } else {
+                messageEl.style.background = 'var(--primary-brown)';
+            }
+            
+            document.body.appendChild(messageEl);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                messageEl.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

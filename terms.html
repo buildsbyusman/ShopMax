@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - ShopMax</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .policy-hero {
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--secondary-brown) 100%);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        .policy-hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .policy-content {
+            padding: 4rem 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .policy-section {
+            margin-bottom: 3rem;
+        }
+        .policy-section h2 {
+            color: var(--primary-black);
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--primary-brown);
+            padding-bottom: 0.5rem;
+        }
+        .policy-section h3 {
+            color: var(--primary-black);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+        .policy-section p, .policy-section li {
+            color: var(--medium-gray);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        .policy-section ul {
+            padding-left: 2rem;
+        }
+        .last-updated {
+            background: var(--light-gray);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--medium-gray);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1><a href="index.html" style="color: var(--primary-brown); text-decoration: none;">ShopMax</a></h1>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products..." id="searchInput">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <a href="login.html" class="auth-link">Login</a>
+                    <a href="register.html" class="auth-link">Register</a>
+                    <div class="wishlist-icon" onclick="wishlistSidebar.open()">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count" id="wishlistCount">0</span>
+                    </div>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="cj-products.html">CJ Dropshipping</a></li>
+                    <li><a href="bundles.html">Bundles</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="policy-hero">
+        <div class="container">
+            <h1>Terms of Service</h1>
+            <p>Please read these terms carefully before using our services.</p>
+        </div>
+    </section>
+
+    <section class="policy-content">
+        <div class="container">
+            <div class="last-updated">
+                <strong>Last Updated:</strong> January 15, 2024
+            </div>
+
+            <div class="policy-section">
+                <h2>1. Acceptance of Terms</h2>
+                <p>By accessing and using ShopMax, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>2. Use License</h2>
+                <p>Permission is granted to temporarily download one copy of the materials on ShopMax for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+                <ul>
+                    <li>Modify or copy the materials</li>
+                    <li>Use the materials for any commercial purpose or for any public display</li>
+                    <li>Attempt to reverse engineer any software contained on the website</li>
+                    <li>Remove any copyright or other proprietary notations from the materials</li>
+                </ul>
+            </div>
+
+            <div class="policy-section">
+                <h2>3. User Accounts</h2>
+                <p>When you create an account with us, you must provide information that is accurate, complete, and current at all times. You are responsible for safeguarding the password and for all activities that occur under your account.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>4. Prohibited Uses</h2>
+                <p>You may not use our service:</p>
+                <ul>
+                    <li>For any unlawful purpose or to solicit others to perform unlawful acts</li>
+                    <li>To violate any international, federal, provincial, or state regulations, rules, laws, or local ordinances</li>
+                    <li>To infringe upon or violate our intellectual property rights or the intellectual property rights of others</li>
+                    <li>To harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate</li>
+                    <li>To submit false or misleading information</li>
+                    <li>To upload or transmit viruses or any other type of malicious code</li>
+                </ul>
+            </div>
+
+            <div class="policy-section">
+                <h2>5. Product Information</h2>
+                <p>We strive to provide accurate product information, but we do not warrant that product descriptions or other content is accurate, complete, reliable, current, or error-free. If a product offered by us is not as described, your sole remedy is to return it in unused condition.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>6. Pricing and Payment</h2>
+                <p>All prices are subject to change without notice. We reserve the right to modify or discontinue any product or service without notice. We shall not be liable to you or to any third party for any modification, price change, suspension, or discontinuance of the service.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>7. Limitation of Liability</h2>
+                <p>In no event shall ShopMax, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of the service.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>8. Governing Law</h2>
+                <p>These Terms shall be interpreted and governed by the laws of the United States, without regard to its conflict of law provisions. Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>9. Changes to Terms</h2>
+                <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days notice prior to any new terms taking effect.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>10. Contact Information</h2>
+                <p>If you have any questions about these Terms of Service, please contact us at:</p>
+                <p>
+                    Email: <a href="mailto:legal@shopmax.com">legal@shopmax.com</a><br>
+                    Phone: <a href="tel:+15551234567">+1 (555) 123-4567</a><br>
+                    Address: 123 Commerce Street, Business District, BD 12345, United States
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ShopMax</h3>
+                    <p>Your trusted e-commerce platform for quality products at great prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="returns.html">Returns</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="support.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ShopMax. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+</body>
+</html>

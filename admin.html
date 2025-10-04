@@ -1,0 +1,2041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - ShopMax</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.css">
+    <style>
+        /* Admin Panel Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        /* Color Scheme Variables */
+        :root {
+            --primary-black: #1a1a1a;
+            --secondary-black: #2d2d2d;
+            --primary-brown: #8b4513;
+            --secondary-brown: #a0522d;
+            --light-brown: #d2b48c;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #6c757d;
+            --dark-gray: #343a40;
+            --accent-color: #ff6b35;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--secondary-black) 100%);
+            color: white;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .admin-sidebar.collapsed {
+            width: 70px;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+
+        .admin-sidebar.collapsed .sidebar-header h2 {
+            opacity: 0;
+        }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar-toggle:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            margin: 0.25rem 0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .nav-link.active {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border-right: 3px solid var(--primary-brown);
+        }
+
+        .nav-link i {
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-text {
+            transition: opacity 0.3s ease;
+        }
+
+        .admin-sidebar.collapsed .nav-text {
+            opacity: 0;
+        }
+
+        .nav-badge {
+            background: #e74c3c;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            margin-left: auto;
+        }
+
+        .admin-sidebar.collapsed .nav-badge {
+            display: none;
+        }
+
+        /* Main Content */
+        .admin-main {
+            margin-left: 280px;
+            transition: margin-left 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .admin-main.sidebar-collapsed {
+            margin-left: 70px;
+        }
+
+        /* Top Header */
+        .admin-header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left h1 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            width: 300px;
+            font-size: 0.9rem;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .user-menu:hover {
+            background: #f8f9fa;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .user-role {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* Content Area */
+        .admin-content {
+            padding: 2rem;
+        }
+
+        .content-header {
+            margin-bottom: 2rem;
+        }
+
+        .content-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .content-subtitle {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Dashboard Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .stat-icon.orders { background: linear-gradient(135deg, var(--primary-brown), var(--secondary-brown)); }
+        .stat-icon.revenue { background: linear-gradient(135deg, var(--success-color), #229954); }
+        .stat-icon.customers { background: linear-gradient(135deg, var(--danger-color), #c0392b); }
+        .stat-icon.products { background: linear-gradient(135deg, var(--warning-color), #e67e22); }
+        .stat-icon.inventory { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .stat-icon.low-stock { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .stat-icon.out-of-stock { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .stat-icon.inventory-value { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .stat-icon.cj-products { background: linear-gradient(135deg, #1abc9c, #16a085); }
+        .stat-icon.cj-orders { background: linear-gradient(135deg, #34495e, #2c3e50); }
+        .stat-icon.cj-revenue { background: linear-gradient(135deg, #27ae60, #229954); }
+        .stat-icon.cj-profit { background: linear-gradient(135deg, #e67e22, #d35400); }
+
+        .stat-info h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .stat-change {
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+
+        .stat-change.positive { color: #27ae60; }
+        .stat-change.negative { color: #e74c3c; }
+
+        /* Cards */
+        .admin-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .card-header {
+            padding: 1.5rem 1.5rem 0;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-subtitle {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .data-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-badge.pending { background: #fff3cd; color: #856404; }
+        .status-badge.processing { background: #d1ecf1; color: #0c5460; }
+        .status-badge.shipped { background: #d4edda; color: #155724; }
+        .status-badge.delivered { background: #d1ecf1; color: #0c5460; }
+        .status-badge.cancelled { background: #f8d7da; color: #721c24; }
+
+        /* Buttons */
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary { background: var(--primary-brown); color: white; }
+        .btn-primary:hover { background: var(--secondary-brown); }
+
+        .btn-success { background: #27ae60; color: white; }
+        .btn-success:hover { background: #229954; }
+
+        .btn-danger { background: #e74c3c; color: white; }
+        .btn-danger:hover { background: #c0392b; }
+
+        .btn-warning { background: #f39c12; color: white; }
+        .btn-warning:hover { background: #e67e22; }
+
+        .btn-secondary { background: #95a5a6; color: white; }
+        .btn-secondary:hover { background: #7f8c8d; }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        /* Charts */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 1rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+            }
+
+            .admin-sidebar.open {
+                transform: translateX(0);
+            }
+
+            .admin-main {
+                margin-left: 0;
+            }
+
+            .search-box input {
+                width: 200px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading States */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Hidden sections */
+        .admin-section {
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        /* Professional Admin Panel Styles */
+        .card-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .quick-actions .btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Alert Items */
+        .alert-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            border-left: 4px solid;
+        }
+
+        .alert-item.low-stock {
+            background: #fff3cd;
+            border-left-color: #f39c12;
+            color: #856404;
+        }
+
+        .alert-item.out-of-stock {
+            background: #f8d7da;
+            border-left-color: #e74c3c;
+            color: #721c24;
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-content strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .alert-content span {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* API Configuration */
+        .api-config {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .config-section h4 {
+            color: var(--primary-brown);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .config-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Sync Actions */
+        .sync-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sync-actions .btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .sync-status {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .status-label {
+            font-weight: 500;
+            color: #666;
+        }
+
+        .status-value {
+            font-weight: 600;
+        }
+
+        .status-value.success {
+            color: var(--success-color);
+        }
+
+        .status-value.error {
+            color: var(--danger-color);
+        }
+
+        /* Order Actions */
+        .order-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .order-actions .btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .order-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stat-label {
+            font-weight: 500;
+            color: #666;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--primary-brown);
+        }
+
+        /* Product Movement */
+        .product-movement {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-info strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .product-info span {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .movement-stats {
+            text-align: right;
+        }
+
+        .movement-count {
+            display: block;
+            font-weight: 600;
+            color: var(--primary-brown);
+        }
+
+        .movement-trend {
+            font-size: 0.9rem;
+        }
+
+        .movement-trend.positive {
+            color: var(--success-color);
+        }
+
+        .movement-trend.negative {
+            color: var(--danger-color);
+        }
+
+        /* CJ Product Items */
+        .cj-product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-stats {
+            text-align: right;
+        }
+
+        .sales-count {
+            display: block;
+            font-weight: 600;
+            color: var(--primary-brown);
+        }
+
+        .profit-margin {
+            font-size: 0.9rem;
+            color: var(--success-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .api-config {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .sync-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <button class="sidebar-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h2>ShopMax Admin</h2>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <div class="nav-item">
+                <a href="#dashboard" class="nav-link active" onclick="showSection('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </div>
+            
+            <div class="nav-item">
+                <a href="#products" class="nav-link" onclick="showSection('products')">
+                    <i class="fas fa-box"></i>
+                    <span class="nav-text">Products</span>
+                    <span class="nav-badge" id="productBadge">0</span>
+                </a>
+            </div>
+            
+            <div class="nav-item">
+                <a href="#orders" class="nav-link" onclick="showSection('orders')">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="nav-text">Orders</span>
+                    <span class="nav-badge" id="orderBadge">0</span>
+                </a>
+            </div>
+            
+            <div class="nav-item">
+                <a href="#customers" class="nav-link" onclick="showSection('customers')">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-text">Customers</span>
+                    <span class="nav-badge" id="customerBadge">0</span>
+                </a>
+            </div>
+            
+            <div class="nav-item">
+                <a href="#inventory" class="nav-link" onclick="showSection('inventory')">
+                    <i class="fas fa-warehouse"></i>
+                    <span class="nav-text">Inventory</span>
+                </a>
+            </div>
+            
+            <div class="nav-item">
+                <a href="#dropshipping" class="nav-link" onclick="showSection('dropshipping')">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span class="nav-text">CJ Dropshipping</span>
+                </a>
+            </div>
+            
+            <div class="nav-item">
+                <a href="#analytics" class="nav-link" onclick="showSection('analytics')">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-text">Analytics</span>
+                </a>
+            </div>
+            
+            <div class="nav-item">
+                <a href="#marketing" class="nav-link" onclick="showSection('marketing')">
+                    <i class="fas fa-bullhorn"></i>
+                    <span class="nav-text">Marketing</span>
+                </a>
+            </div>
+            
+            <div class="nav-item">
+                <a href="#settings" class="nav-link" onclick="showSection('settings')">
+                    <i class="fas fa-cog"></i>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </div>
+            
+            <div class="nav-item">
+                <a href="#reports" class="nav-link" onclick="showSection('reports')">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-text">Reports</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main" id="adminMain">
+        <!-- Top Header -->
+        <header class="admin-header">
+            <div class="header-left">
+                <h1 id="pageTitle">Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search..." id="globalSearch">
+                </div>
+                <div class="user-menu" onclick="toggleUserMenu()">
+                    <div class="user-avatar">A</div>
+                    <div class="user-info">
+                        <span class="user-name">Admin User</span>
+                        <span class="user-role">Administrator</span>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="admin-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="admin-section active">
+                <div class="content-header">
+                    <h2 class="content-title">Dashboard Overview</h2>
+                    <p class="content-subtitle">Welcome back! Here's what's happening with your store today.</p>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon orders">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalOrders">0</h3>
+                            <p>Total Orders</p>
+                            <div class="stat-change positive">+12% from last month</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon revenue">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalRevenue">$0</h3>
+                            <p>Total Revenue</p>
+                            <div class="stat-change positive">+8% from last month</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon customers">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalCustomers">0</h3>
+                            <p>Total Customers</p>
+                            <div class="stat-change positive">+15% from last month</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon products">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalProducts">0</h3>
+                            <p>Total Products</p>
+                            <div class="stat-change positive">+5% from last month</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Sales Analytics</h3>
+                            <p class="card-subtitle">Revenue trends over the last 30 days</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="chart-container">
+                                <canvas id="salesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Order Status</h3>
+                            <p class="card-subtitle">Current order distribution</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="chart-container">
+                                <canvas id="orderStatusChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Orders</h3>
+                            <p class="card-subtitle">Latest customer orders</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="loading" id="recentOrdersLoading">
+                                <div class="spinner"></div>
+                                Loading recent orders...
+                            </div>
+                            <div id="recentOrders" style="display: none;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Top Products</h3>
+                            <p class="card-subtitle">Best selling products</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="loading" id="topProductsLoading">
+                                <div class="spinner"></div>
+                                Loading top products...
+                            </div>
+                            <div id="topProducts" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section id="products-section" class="admin-section">
+                <div class="content-header">
+                    <h2 class="content-title">Product Management</h2>
+                    <p class="content-subtitle">Manage your product catalog, inventory, and pricing.</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Products</h3>
+                        <p class="card-subtitle">All products in your store</p>
+                    </div>
+                    <div class="card-content">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <div style="display: flex; gap: 1rem;">
+                                <input type="text" class="form-control" placeholder="Search products..." id="productSearch" style="width: 300px;">
+                                <select class="form-control" id="categoryFilter" style="width: 200px;">
+                                    <option value="">All Categories</option>
+                                    <option value="electronics">Electronics</option>
+                                    <option value="clothing">Clothing</option>
+                                    <option value="home">Home & Garden</option>
+                                    <option value="sports">Sports</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" onclick="showAddProductModal()">
+                                <i class="fas fa-plus"></i> Add Product
+                            </button>
+                        </div>
+                        
+                        <div class="loading" id="productsLoading">
+                            <div class="spinner"></div>
+                            Loading products...
+                        </div>
+                        <div id="productsTable" style="display: none;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders-section" class="admin-section">
+                <div class="content-header">
+                    <h2 class="content-title">Order Management</h2>
+                    <p class="content-subtitle">Track and manage customer orders.</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Orders</h3>
+                        <p class="card-subtitle">All customer orders</p>
+                    </div>
+                    <div class="card-content">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <div style="display: flex; gap: 1rem;">
+                                <input type="text" class="form-control" placeholder="Search orders..." id="orderSearch" style="width: 300px;">
+                                <select class="form-control" id="orderStatusFilter" style="width: 200px;">
+                                    <option value="">All Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="processing">Processing</option>
+                                    <option value="shipped">Shipped</option>
+                                    <option value="delivered">Delivered</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="loading" id="ordersLoading">
+                            <div class="spinner"></div>
+                            Loading orders...
+                        </div>
+                        <div id="ordersTable" style="display: none;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customers Section -->
+            <section id="customers-section" class="admin-section">
+                <div class="content-header">
+                    <h2 class="content-title">Customer Management</h2>
+                    <p class="content-subtitle">View and manage customer accounts.</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Customers</h3>
+                        <p class="card-subtitle">All registered customers</p>
+                    </div>
+                    <div class="card-content">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <input type="text" class="form-control" placeholder="Search customers..." id="customerSearch" style="width: 300px;">
+                        </div>
+                        
+                        <div class="loading" id="customersLoading">
+                            <div class="spinner"></div>
+                            Loading customers...
+                        </div>
+                        <div id="customersTable" style="display: none;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inventory Section -->
+            <section id="inventory-section" class="admin-section">
+                <div class="content-header">
+                    <h2 class="content-title">Inventory Management</h2>
+                    <p class="content-subtitle">Advanced inventory tracking, stock alerts, and warehouse management</p>
+                </div>
+
+                <!-- Inventory Overview Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon inventory">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalInventory">0</h3>
+                            <p>Total Products</p>
+                            <div class="stat-change positive">+5% this month</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon low-stock">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="lowStockCount">0</h3>
+                            <p>Low Stock Items</p>
+                            <div class="stat-change negative">Needs attention</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon out-of-stock">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="outOfStockCount">0</h3>
+                            <p>Out of Stock</p>
+                            <div class="stat-change negative">Urgent restock needed</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon inventory-value">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="inventoryValue">$0</h3>
+                            <p>Inventory Value</p>
+                            <div class="stat-change positive">+12% this month</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inventory Management Tools -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Quick Actions</h3>
+                            <p class="card-subtitle">Common inventory tasks</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="quick-actions">
+                                <button class="btn btn-primary" onclick="showBulkUpdateModal()">
+                                    <i class="fas fa-edit"></i> Bulk Update Stock
+                                </button>
+                                <button class="btn btn-success" onclick="showAddStockModal()">
+                                    <i class="fas fa-plus"></i> Add Stock
+                                </button>
+                                <button class="btn btn-warning" onclick="showStockAlertModal()">
+                                    <i class="fas fa-bell"></i> Set Stock Alerts
+                                </button>
+                                <button class="btn btn-secondary" onclick="exportInventoryReport()">
+                                    <i class="fas fa-download"></i> Export Report
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Stock Alerts</h3>
+                            <p class="card-subtitle">Items requiring attention</p>
+                        </div>
+                        <div class="card-content">
+                            <div id="stockAlerts">
+                                <div class="alert-item low-stock">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <div class="alert-content">
+                                        <strong>Wireless Headphones</strong>
+                                        <span>Only 5 units left (Min: 10)</span>
+                                    </div>
+                                    <button class="btn btn-sm btn-primary">Restock</button>
+                                </div>
+                                <div class="alert-item out-of-stock">
+                                    <i class="fas fa-times-circle"></i>
+                                    <div class="alert-content">
+                                        <strong>Smart Watch</strong>
+                                        <span>Out of stock</span>
+                                    </div>
+                                    <button class="btn btn-sm btn-success">Order Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Inventory Table -->
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Inventory Overview</h3>
+                        <p class="card-subtitle">Complete inventory management</p>
+                        <div class="card-actions">
+                            <input type="text" class="form-control" placeholder="Search inventory..." id="inventorySearch" style="width: 300px;">
+                            <select class="form-control" id="inventoryFilter" style="width: 200px;">
+                                <option value="">All Status</option>
+                                <option value="in-stock">In Stock</option>
+                                <option value="low-stock">Low Stock</option>
+                                <option value="out-of-stock">Out of Stock</option>
+                                <option value="discontinued">Discontinued</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="refreshInventory()">
+                                <i class="fas fa-sync"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="loading" id="inventoryLoading">
+                            <div class="spinner"></div>
+                            Loading inventory data...
+                        </div>
+                        <div id="inventoryTable" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- Inventory Analytics -->
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Stock Movement Trends</h3>
+                            <p class="card-subtitle">Inventory flow over time</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="chart-container">
+                                <canvas id="inventoryTrendsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Top Moving Products</h3>
+                            <p class="card-subtitle">Fastest selling items</p>
+                        </div>
+                        <div class="card-content">
+                            <div id="topMovingProducts">
+                                <div class="product-movement">
+                                    <div class="product-info">
+                                        <strong>Wireless Headphones</strong>
+                                        <span>SKU: WH-001</span>
+                                    </div>
+                                    <div class="movement-stats">
+                                        <span class="movement-count">45 sold</span>
+                                        <span class="movement-trend positive">+23%</span>
+                                    </div>
+                                </div>
+                                <div class="product-movement">
+                                    <div class="product-info">
+                                        <strong>Smart Watch</strong>
+                                        <span>SKU: SW-002</span>
+                                    </div>
+                                    <div class="movement-stats">
+                                        <span class="movement-count">32 sold</span>
+                                        <span class="movement-trend positive">+18%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CJ Dropshipping Section -->
+            <section id="dropshipping-section" class="admin-section">
+                <div class="content-header">
+                    <h2 class="content-title">CJ Dropshipping Integration</h2>
+                    <p class="content-subtitle">Professional dropshipping management with API integration</p>
+                </div>
+
+                <!-- CJ Dropshipping Overview -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon cj-products">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="cjProductCount">0</h3>
+                            <p>CJ Products</p>
+                            <div class="stat-change positive">+15 new today</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon cj-orders">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="cjOrderCount">0</h3>
+                            <p>CJ Orders</p>
+                            <div class="stat-change positive">+8% this week</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon cj-revenue">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="cjRevenue">$0</h3>
+                            <p>CJ Revenue</p>
+                            <div class="stat-change positive">+22% this month</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon cj-profit">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="cjProfit">$0</h3>
+                            <p>Profit Margin</p>
+                            <div class="stat-change positive">35% avg</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CJ API Configuration -->
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h3 class="card-title">API Configuration</h3>
+                        <p class="card-subtitle">Connect and manage your CJ Dropshipping account</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="api-config">
+                            <div class="config-section">
+                                <h4>API Credentials</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>API Key</label>
+                                        <input type="password" class="form-control" id="cjApiKey" placeholder="Enter your CJ API key">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>API Secret</label>
+                                        <input type="password" class="form-control" id="cjApiSecret" placeholder="Enter your CJ API secret">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Store ID</label>
+                                        <input type="text" class="form-control" id="cjStoreId" placeholder="Your CJ store ID">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Webhook URL</label>
+                                        <input type="url" class="form-control" id="cjWebhookUrl" placeholder="Webhook endpoint URL">
+                                    </div>
+                                </div>
+                                <div class="config-actions">
+                                    <button class="btn btn-primary" onclick="testCJConnection()">
+                                        <i class="fas fa-plug"></i> Test Connection
+                                    </button>
+                                    <button class="btn btn-success" onclick="saveCJConfig()">
+                                        <i class="fas fa-save"></i> Save Configuration
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="config-section">
+                                <h4>Sync Settings</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Auto Sync Products</label>
+                                        <select class="form-control" id="autoSyncProducts">
+                                            <option value="disabled">Disabled</option>
+                                            <option value="hourly">Every Hour</option>
+                                            <option value="daily">Daily</option>
+                                            <option value="weekly">Weekly</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Auto Sync Orders</label>
+                                        <select class="form-control" id="autoSyncOrders">
+                                            <option value="disabled">Disabled</option>
+                                            <option value="realtime">Real-time</option>
+                                            <option value="hourly">Every Hour</option>
+                                            <option value="daily">Daily</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Price Markup (%)</label>
+                                        <input type="number" class="form-control" id="priceMarkup" placeholder="30" min="0" max="100">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Stock Buffer</label>
+                                        <input type="number" class="form-control" id="stockBuffer" placeholder="5" min="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CJ Product Management -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Product Sync</h3>
+                            <p class="card-subtitle">Manage product synchronization</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="sync-actions">
+                                <button class="btn btn-primary" onclick="syncCJProducts()">
+                                    <i class="fas fa-sync"></i> Sync All Products
+                                </button>
+                                <button class="btn btn-success" onclick="importNewProducts()">
+                                    <i class="fas fa-download"></i> Import New Products
+                                </button>
+                                <button class="btn btn-warning" onclick="updateProductPrices()">
+                                    <i class="fas fa-tags"></i> Update Prices
+                                </button>
+                                <button class="btn btn-secondary" onclick="updateProductStock()">
+                                    <i class="fas fa-boxes"></i> Update Stock
+                                </button>
+                            </div>
+                            <div class="sync-status">
+                                <div class="status-item">
+                                    <span class="status-label">Last Sync:</span>
+                                    <span class="status-value" id="lastSyncTime">Never</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-label">Products Synced:</span>
+                                    <span class="status-value" id="productsSynced">0</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-label">Sync Status:</span>
+                                    <span class="status-value success" id="syncStatus">Ready</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Order Management</h3>
+                            <p class="card-subtitle">CJ order processing and tracking</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="order-actions">
+                                <button class="btn btn-primary" onclick="syncCJOrders()">
+                                    <i class="fas fa-sync"></i> Sync Orders
+                                </button>
+                                <button class="btn btn-success" onclick="processPendingOrders()">
+                                    <i class="fas fa-play"></i> Process Pending
+                                </button>
+                                <button class="btn btn-info" onclick="trackCJOrders()">
+                                    <i class="fas fa-truck"></i> Track Shipments
+                                </button>
+                            </div>
+                            <div class="order-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Pending Orders:</span>
+                                    <span class="stat-value" id="pendingOrders">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Processing:</span>
+                                    <span class="stat-value" id="processingOrders">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Shipped:</span>
+                                    <span class="stat-value" id="shippedOrders">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CJ Products Table -->
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h3 class="card-title">CJ Dropshipping Products</h3>
+                        <p class="card-subtitle">Manage your dropshipping product catalog</p>
+                        <div class="card-actions">
+                            <input type="text" class="form-control" placeholder="Search CJ products..." id="cjProductSearch" style="width: 300px;">
+                            <select class="form-control" id="cjCategoryFilter" style="width: 200px;">
+                                <option value="">All Categories</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="clothing">Clothing</option>
+                                <option value="home">Home & Garden</option>
+                                <option value="sports">Sports</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="refreshCJProducts()">
+                                <i class="fas fa-sync"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="loading" id="dropshippingLoading">
+                            <div class="spinner"></div>
+                            Loading CJ dropshipping products...
+                        </div>
+                        <div id="dropshippingTable" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- CJ Analytics -->
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3 class="card-title">CJ Performance Analytics</h3>
+                            <p class="card-subtitle">Revenue and profit trends</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="chart-container">
+                                <canvas id="cjAnalyticsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Top CJ Products</h3>
+                            <p class="card-subtitle">Best performing dropshipping items</p>
+                        </div>
+                        <div class="card-content">
+                            <div id="topCJProducts">
+                                <div class="cj-product-item">
+                                    <div class="product-info">
+                                        <strong>Wireless Earbuds Pro</strong>
+                                        <span>CJ SKU: CJ-001</span>
+                                    </div>
+                                    <div class="product-stats">
+                                        <span class="sales-count">127 sold</span>
+                                        <span class="profit-margin">$45 profit</span>
+                                    </div>
+                                </div>
+                                <div class="cj-product-item">
+                                    <div class="product-info">
+                                        <strong>Smart Fitness Band</strong>
+                                        <span>CJ SKU: CJ-002</span>
+                                    </div>
+                                    <div class="product-stats">
+                                        <span class="sales-count">89 sold</span>
+                                        <span class="profit-margin">$32 profit</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics-section" class="admin-section">
+                <div class="content-header">
+                    <h2 class="content-title">Analytics & Reports</h2>
+                    <p class="content-subtitle">Detailed analytics and performance metrics.</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Sales Performance</h3>
+                            <p class="card-subtitle">Revenue and sales trends</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="chart-container">
+                                <canvas id="salesPerformanceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Customer Analytics</h3>
+                            <p class="card-subtitle">Customer behavior and demographics</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="chart-container">
+                                <canvas id="customerAnalyticsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Marketing Section -->
+            <section id="marketing-section" class="admin-section">
+                <div class="content-header">
+                    <h2 class="content-title">Marketing Tools</h2>
+                    <p class="content-subtitle">Manage campaigns, promotions, and customer engagement.</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Active Campaigns</h3>
+                        <p class="card-subtitle">Current marketing campaigns</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="loading" id="marketingLoading">
+                            <div class="spinner"></div>
+                            Loading marketing data...
+                        </div>
+                        <div id="marketingTable" style="display: none;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings-section" class="admin-section">
+                <div class="content-header">
+                    <h2 class="content-title">System Settings</h2>
+                    <p class="content-subtitle">Configure your store settings and preferences.</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h3 class="card-title">General Settings</h3>
+                        <p class="card-subtitle">Basic store configuration</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="loading" id="settingsLoading">
+                            <div class="spinner"></div>
+                            Loading settings...
+                        </div>
+                        <div id="settingsForm" style="display: none;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports-section" class="admin-section">
+                <div class="content-header">
+                    <h2 class="content-title">Reports & Export</h2>
+                    <p class="content-subtitle">Generate and download detailed reports.</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Available Reports</h3>
+                        <p class="card-subtitle">Generate reports for different time periods</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="loading" id="reportsLoading">
+                            <div class="spinner"></div>
+                            Loading reports...
+                        </div>
+                        <div id="reportsTable" style="display: none;"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        // Global variables
+        let currentSection = 'dashboard';
+        let sidebarCollapsed = false;
+
+        // Initialize admin panel
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Initializing admin panel...');
+            
+            // Initialize admin manager
+            if (window.AdminManager) {
+                window.adminManager = new AdminManager();
+            }
+            
+            // Load initial data
+            loadDashboardData();
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            console.log('Admin panel initialized successfully');
+        });
+
+        // Toggle sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('adminSidebar');
+            const main = document.getElementById('adminMain');
+            
+            sidebarCollapsed = !sidebarCollapsed;
+            
+            if (sidebarCollapsed) {
+                sidebar.classList.add('collapsed');
+                main.classList.add('sidebar-collapsed');
+            } else {
+                sidebar.classList.remove('collapsed');
+                main.classList.remove('sidebar-collapsed');
+            }
+        }
+
+        // Show section
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected section
+            const targetSection = document.getElementById(sectionName + '-section');
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // Add active class to clicked nav link
+            const targetLink = document.querySelector(`[onclick="showSection('${sectionName}')"]`);
+            if (targetLink) {
+                targetLink.classList.add('active');
+            }
+            
+            // Update page title
+            const pageTitle = document.getElementById('pageTitle');
+            const titles = {
+                'dashboard': 'Dashboard',
+                'products': 'Products',
+                'orders': 'Orders',
+                'customers': 'Customers',
+                'inventory': 'Inventory',
+                'dropshipping': 'CJ Dropshipping',
+                'analytics': 'Analytics',
+                'marketing': 'Marketing',
+                'settings': 'Settings',
+                'reports': 'Reports'
+            };
+            
+            if (pageTitle && titles[sectionName]) {
+                pageTitle.textContent = titles[sectionName];
+            }
+            
+            currentSection = sectionName;
+            
+            // Load section-specific data
+            loadSectionData(sectionName);
+        }
+
+        // Load section data
+        function loadSectionData(sectionName) {
+            console.log('Loading section data for:', sectionName);
+            
+            switch(sectionName) {
+                case 'dashboard':
+                    loadDashboardData();
+                    break;
+                case 'products':
+                    if (window.adminManager) {
+                        window.adminManager.loadProductsData();
+                    } else {
+                        loadProductsData();
+                    }
+                    break;
+                case 'orders':
+                    if (window.adminManager) {
+                        window.adminManager.loadOrdersData();
+                    } else {
+                        loadOrdersData();
+                    }
+                    break;
+                case 'customers':
+                    if (window.adminManager) {
+                        window.adminManager.loadCustomersData();
+                    } else {
+                        loadCustomersData();
+                    }
+                    break;
+                case 'inventory':
+                    loadInventoryData();
+                    break;
+                case 'dropshipping':
+                    loadDropshippingData();
+                    break;
+                case 'analytics':
+                    loadAnalyticsData();
+                    break;
+                case 'marketing':
+                    loadMarketingData();
+                    break;
+                case 'settings':
+                    loadSettingsData();
+                    break;
+                case 'reports':
+                    loadReportsData();
+                    break;
+            }
+        }
+
+        // Load dashboard data
+        function loadDashboardData() {
+            console.log('Loading dashboard data...');
+            
+            // Simulate loading
+            setTimeout(() => {
+                // Update stats
+                document.getElementById('totalOrders').textContent = '1,247';
+                document.getElementById('totalRevenue').textContent = '$45,678';
+                document.getElementById('totalCustomers').textContent = '892';
+                document.getElementById('totalProducts').textContent = '156';
+                
+                // Load recent orders
+                loadRecentOrders();
+                
+                // Load top products
+                loadTopProducts();
+                
+                // Initialize charts
+                initializeCharts();
+            }, 1000);
+        }
+
+        // Load recent orders
+        function loadRecentOrders() {
+            const loading = document.getElementById('recentOrdersLoading');
+            const content = document.getElementById('recentOrders');
+            
+            const orders = [
+                { id: '#1234', customer: 'John Doe', amount: '$89.99', status: 'processing', date: '2024-01-15' },
+                { id: '#1235', customer: 'Jane Smith', amount: '$156.50', status: 'shipped', date: '2024-01-15' },
+                { id: '#1236', customer: 'Bob Johnson', amount: '$234.00', status: 'delivered', date: '2024-01-14' },
+                { id: '#1237', customer: 'Alice Brown', amount: '$67.99', status: 'pending', date: '2024-01-14' },
+                { id: '#1238', customer: 'Charlie Wilson', amount: '$189.75', status: 'processing', date: '2024-01-13' }
+            ];
+            
+            let html = '<table class="data-table">';
+            html += '<thead><tr><th>Order ID</th><th>Customer</th><th>Amount</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>';
+            html += '<tbody>';
+            
+            orders.forEach(order => {
+                html += `<tr>
+                    <td>${order.id}</td>
+                    <td>${order.customer}</td>
+                    <td>${order.amount}</td>
+                    <td><span class="status-badge ${order.status}">${order.status}</span></td>
+                    <td>${order.date}</td>
+                    <td>
+                        <button class="btn btn-primary" onclick="viewOrder('${order.id}')">View</button>
+                    </td>
+                </tr>`;
+            });
+            
+            html += '</tbody></table>';
+            
+            loading.style.display = 'none';
+            content.innerHTML = html;
+            content.style.display = 'block';
+        }
+
+        // Load top products
+        function loadTopProducts() {
+            const loading = document.getElementById('topProductsLoading');
+            const content = document.getElementById('topProducts');
+            
+            const products = [
+                { name: 'Wireless Headphones', sales: 45, revenue: '$2,250' },
+                { name: 'Smart Watch', sales: 32, revenue: '$4,800' },
+                { name: 'Laptop Stand', sales: 28, revenue: '$840' },
+                { name: 'Phone Case', sales: 67, revenue: '$1,340' },
+                { name: 'Bluetooth Speaker', sales: 23, revenue: '$1,150' }
+            ];
+            
+            let html = '<table class="data-table">';
+            html += '<thead><tr><th>Product</th><th>Sales</th><th>Revenue</th></tr></thead>';
+            html += '<tbody>';
+            
+            products.forEach(product => {
+                html += `<tr>
+                    <td>${product.name}</td>
+                    <td>${product.sales}</td>
+                    <td>${product.revenue}</td>
+                </tr>`;
+            });
+            
+            html += '</tbody></table>';
+            
+            loading.style.display = 'none';
+            content.innerHTML = html;
+            content.style.display = 'block';
+        }
+
+        // Initialize charts
+        function initializeCharts() {
+            // Sales Chart
+            const salesCtx = document.getElementById('salesChart');
+            if (salesCtx) {
+                new Chart(salesCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Sales',
+                            data: [12000, 19000, 15000, 25000, 22000, 30000],
+                            borderColor: '#3498db',
+                            backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Order Status Chart
+            const orderStatusCtx = document.getElementById('orderStatusChart');
+            if (orderStatusCtx) {
+                new Chart(orderStatusCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Pending', 'Processing', 'Shipped', 'Delivered'],
+                        datasets: [{
+                            data: [15, 25, 30, 30],
+                            backgroundColor: ['#f39c12', '#3498db', '#27ae60', '#2ecc71']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Load other section data (placeholder functions)
+        function loadProductsData() {
+            console.log('Loading products data...');
+            // Implementation for products data
+        }
+
+        function loadOrdersData() {
+            console.log('Loading orders data...');
+            // Implementation for orders data
+        }
+
+        function loadCustomersData() {
+            console.log('Loading customers data...');
+            // Implementation for customers data
+        }
+
+        function loadInventoryData() {
+            console.log('Loading inventory data...');
+            // Implementation for inventory data
+        }
+
+        function loadDropshippingData() {
+            console.log('Loading dropshipping data...');
+            // Implementation for dropshipping data
+        }
+
+        function loadAnalyticsData() {
+            console.log('Loading analytics data...');
+            // Implementation for analytics data
+        }
+
+        function loadMarketingData() {
+            console.log('Loading marketing data...');
+            // Implementation for marketing data
+        }
+
+        function loadSettingsData() {
+            console.log('Loading settings data...');
+            // Implementation for settings data
+        }
+
+        function loadReportsData() {
+            console.log('Loading reports data...');
+            // Implementation for reports data
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Global search
+            const globalSearch = document.getElementById('globalSearch');
+            if (globalSearch) {
+                globalSearch.addEventListener('input', function(e) {
+                    console.log('Global search:', e.target.value);
+                    // Implement global search functionality
+                });
+            }
+        }
+
+        // Utility functions
+        function viewOrder(orderId) {
+            console.log('Viewing order:', orderId);
+            alert(`Viewing order ${orderId}`);
+        }
+
+        function showAddProductModal() {
+            console.log('Showing add product modal');
+            alert('Add Product Modal - To be implemented');
+        }
+
+        function toggleUserMenu() {
+            console.log('Toggling user menu');
+            // Implement user menu functionality
+        }
+
+        // Export functions for global access
+        window.showSection = showSection;
+        window.toggleSidebar = toggleSidebar;
+        window.viewOrder = viewOrder;
+        window.showAddProductModal = showAddProductModal;
+        window.toggleUserMenu = toggleUserMenu;
+    </script>
+</body>
+</html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Search - ShopMax</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1><a href="index.html" style="color: var(--primary-brown); text-decoration: none;">ShopMax</a></h1>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products..." id="mainSearchInput" onkeypress="handleSearchKeypress(event)">
+                    <button class="search-btn" onclick="performMainSearch()"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <a href="login.html" class="auth-link">Login</a>
+                    <a href="register.html" class="auth-link">Register</a>
+                    <div class="wishlist-icon" onclick="wishlistSidebar.open()">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count" id="wishlistCount">0</span>
+                    </div>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="cj-products.html">CJ Dropshipping</a></li>
+                    <li><a href="bundles.html">Bundles</a></li>
+                    <li><a href="search.html" class="active">Search</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Search Hero Section -->
+    <section class="search-hero">
+        <div class="container">
+            <div class="search-hero-content">
+                <h1>Advanced Search</h1>
+                <p>Find exactly what you're looking for with our powerful search and filtering system</p>
+                <div class="search-input-container">
+                    <input type="text" id="searchQuery" placeholder="Search for products, brands, categories..." 
+                           value="" onkeypress="handleSearchKeypress(event)">
+                    <button class="search-btn-large" onclick="performSearch()">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                    <button class="voice-search-btn" id="voiceSearchBtn" title="Voice Search" onclick="startVoiceSearch()">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+                <!-- Enhanced Search Features -->
+                <div class="search-features">
+                    <div class="search-suggestions">
+                        <h3><i class="fas fa-fire"></i> Popular Searches</h3>
+                        <div class="suggestion-tags">
+                            <span class="suggestion-tag" onclick="searchSuggestion('wireless earbuds')">
+                                <i class="fas fa-headphones"></i> Wireless Earbuds
+                            </span>
+                            <span class="suggestion-tag" onclick="searchSuggestion('smartphone accessories')">
+                                <i class="fas fa-mobile-alt"></i> Phone Accessories
+                            </span>
+                            <span class="suggestion-tag" onclick="searchSuggestion('home office')">
+                                <i class="fas fa-home"></i> Home Office
+                            </span>
+                            <span class="suggestion-tag" onclick="searchSuggestion('fitness tracker')">
+                                <i class="fas fa-running"></i> Fitness Tracker
+                            </span>
+                            <span class="suggestion-tag" onclick="searchSuggestion('led lights')">
+                                <i class="fas fa-lightbulb"></i> LED Lights
+                            </span>
+                            <span class="suggestion-tag" onclick="searchSuggestion('laptop')">
+                                <i class="fas fa-laptop"></i> Laptops
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="search-categories">
+                        <h3><i class="fas fa-th-large"></i> Browse Categories</h3>
+                        <div class="category-grid">
+                            <div class="category-item" onclick="searchSuggestion('electronics')">
+                                <i class="fas fa-microchip"></i>
+                                <span>Electronics</span>
+                            </div>
+                            <div class="category-item" onclick="searchSuggestion('clothing')">
+                                <i class="fas fa-tshirt"></i>
+                                <span>Clothing</span>
+                            </div>
+                            <div class="category-item" onclick="searchSuggestion('home garden')">
+                                <i class="fas fa-home"></i>
+                                <span>Home & Garden</span>
+                            </div>
+                            <div class="category-item" onclick="searchSuggestion('sports')">
+                                <i class="fas fa-dumbbell"></i>
+                                <span>Sports</span>
+                            </div>
+                            <div class="category-item" onclick="searchSuggestion('beauty')">
+                                <i class="fas fa-palette"></i>
+                                <span>Beauty</span>
+                            </div>
+                            <div class="category-item" onclick="searchSuggestion('books')">
+                                <i class="fas fa-book"></i>
+                                <span>Books</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="search-trends">
+                        <h3><i class="fas fa-chart-line"></i> Trending Now</h3>
+                        <div class="trending-list">
+                            <div class="trend-item" onclick="searchSuggestion('wireless charging')">
+                                <span class="trend-rank">#1</span>
+                                <span class="trend-text">Wireless Charging</span>
+                                <span class="trend-arrow"><i class="fas fa-arrow-up"></i></span>
+                            </div>
+                            <div class="trend-item" onclick="searchSuggestion('smart home')">
+                                <span class="trend-rank">#2</span>
+                                <span class="trend-text">Smart Home</span>
+                                <span class="trend-arrow"><i class="fas fa-arrow-up"></i></span>
+                            </div>
+                            <div class="trend-item" onclick="searchSuggestion('gaming accessories')">
+                                <span class="trend-rank">#3</span>
+                                <span class="trend-text">Gaming Accessories</span>
+                                <span class="trend-arrow"><i class="fas fa-arrow-up"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Results Section -->
+    <section class="search-results-section">
+        <div class="container">
+            <div class="search-layout">
+                <!-- Search Filters Sidebar -->
+                <aside class="search-sidebar">
+                    <div id="searchFilters">
+                        <!-- Filters will be loaded here -->
+                    </div>
+                </aside>
+
+                <!-- Main Search Results -->
+                <main class="search-main">
+                    <div class="search-controls">
+                        <div class="search-sort">
+                            <label for="sortSelect">Sort by:</label>
+                            <select id="sortSelect" onchange="updateSorting()">
+                                <option value="relevance">Relevance</option>
+                                <option value="price">Price: Low to High</option>
+                                <option value="price-desc">Price: High to Low</option>
+                                <option value="rating">Rating</option>
+                                <option value="newest">Newest</option>
+                                <option value="popularity">Popularity</option>
+                                <option value="name">Name A-Z</option>
+                            </select>
+                        </div>
+                        <div class="view-toggle">
+                            <button class="view-btn active" onclick="toggleView('grid')" id="gridView">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button class="view-btn" onclick="toggleView('list')" id="listView">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="searchResults">
+                        <!-- Search results will be loaded here -->
+                    </div>
+
+                    <div class="search-pagination" id="searchPagination">
+                        <!-- Pagination will be generated here -->
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search History Section -->
+    <section class="search-history-section" id="searchHistorySection" style="display: none;">
+        <div class="container">
+            <h2>Recent Searches</h2>
+            <div class="search-history-grid" id="searchHistoryGrid">
+                <!-- Search history will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Saved Searches Section -->
+    <section class="saved-searches-section" id="savedSearchesSection" style="display: none;">
+        <div class="container">
+            <h2>Saved Searches</h2>
+            <div class="saved-searches-grid" id="savedSearchesGrid">
+                <!-- Saved searches will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ShopMax</h3>
+                    <p>Your trusted e-commerce platform for quality products at great prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="returns.html">Returns</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="support.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ShopMax. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: $<span id="cartTotal">0.00</span></strong>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/compare.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/recommendations.js"></script>
+    <script src="js/bundles.js"></script>
+    <script src="js/advanced-search.js"></script>
+    <script>
+        // Voice Search Functionality
+        let recognition = null;
+        let isListening = false;
+
+        function startVoiceSearch() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert('Voice search is not supported in this browser. Please use Chrome or Edge.');
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+            
+            const voiceBtn = document.getElementById('voiceSearchBtn');
+            const searchInput = document.getElementById('searchQuery');
+            
+            recognition.onstart = function() {
+                isListening = true;
+                voiceBtn.classList.add('listening');
+                voiceBtn.innerHTML = '<i class="fas fa-stop"></i>';
+                voiceBtn.title = 'Stop listening...';
+                showVoiceStatus('Listening... Speak now');
+            };
+            
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                searchInput.value = transcript;
+                showVoiceStatus('Searching for: ' + transcript);
+                
+                // Automatically perform search after voice input
+                setTimeout(() => {
+                    performSearch();
+                }, 500);
+            };
+            
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error:', event.error);
+                showVoiceStatus('Voice search error. Please try again.', 'error');
+                resetVoiceButton();
+            };
+            
+            recognition.onend = function() {
+                resetVoiceButton();
+            };
+            
+            recognition.start();
+        }
+
+        function resetVoiceButton() {
+            isListening = false;
+            const voiceBtn = document.getElementById('voiceSearchBtn');
+            voiceBtn.classList.remove('listening');
+            voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+            voiceBtn.title = 'Voice Search';
+            hideVoiceStatus();
+        }
+
+        function showVoiceStatus(message, type = 'success') {
+            // Remove existing status if any
+            hideVoiceStatus();
+            
+            const statusDiv = document.createElement('div');
+            statusDiv.className = 'voice-status';
+            statusDiv.id = 'voiceStatus';
+            statusDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'error' ? '#e74c3c' : '#27ae60'};
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                font-size: 14px;
+                font-weight: 500;
+                animation: slideIn 0.3s ease;
+            `;
+            statusDiv.textContent = message;
+            
+            document.body.appendChild(statusDiv);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                hideVoiceStatus();
+            }, 3000);
+        }
+
+        function hideVoiceStatus() {
+            const statusDiv = document.getElementById('voiceStatus');
+            if (statusDiv) {
+                statusDiv.remove();
+            }
+        }
+
+        // Add CSS animation for voice status
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+    <script>
+        // Initialize search page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get search query from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q') || '';
+            
+            if (query) {
+                document.getElementById('searchQuery').value = query;
+                performSearch();
+            } else {
+                // Show search history and saved searches
+                showSearchHistory();
+                showSavedSearches();
+            }
+        });
+        
+        // Handle search keypress
+        function handleSearchKeypress(event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        }
+        
+        // Perform search
+        function performSearch() {
+            const query = document.getElementById('searchQuery').value.trim();
+            if (query) {
+                const results = advancedSearchManager.performSearch(query);
+                advancedSearchManager.renderSearchResults('searchResults', results);
+                advancedSearchManager.renderSearchFilters('searchFilters');
+                
+                // Hide history sections
+                document.getElementById('searchHistorySection').style.display = 'none';
+                document.getElementById('savedSearchesSection').style.display = 'none';
+            }
+        }
+        
+        // Perform main search (from header)
+        function performMainSearch() {
+            const query = document.getElementById('mainSearchInput').value.trim();
+            if (query) {
+                window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+            }
+        }
+        
+        // Search suggestion
+        function searchSuggestion(suggestion) {
+            document.getElementById('searchQuery').value = suggestion;
+            performSearch();
+        }
+        
+        // Update sorting
+        function updateSorting() {
+            const sortSelect = document.getElementById('sortSelect');
+            const sortValue = sortSelect.value;
+            const sortBy = sortValue.includes('-desc') ? sortValue.replace('-desc', '') : sortValue;
+            const sortOrder = sortValue.includes('-desc') ? 'desc' : 'asc';
+            
+            advancedSearchManager.currentFilters.sortBy = sortBy;
+            advancedSearchManager.currentFilters.sortOrder = sortOrder;
+            
+            const results = advancedSearchManager.performSearch();
+            advancedSearchManager.renderSearchResults('searchResults', results);
+        }
+        
+        // Toggle view
+        function toggleView(view) {
+            document.getElementById('gridView').classList.toggle('active', view === 'grid');
+            document.getElementById('listView').classList.toggle('active', view === 'list');
+            
+            const resultsGrid = document.getElementById('searchResults');
+            resultsGrid.classList.toggle('list-view', view === 'list');
+        }
+        
+        // Show search history
+        function showSearchHistory() {
+            const history = advancedSearchManager.searchHistory;
+            if (history.length > 0) {
+                const container = document.getElementById('searchHistoryGrid');
+                container.innerHTML = history.slice(0, 6).map(item => `
+                    <div class="history-item" onclick="searchSuggestion('${item.query}')">
+                        <i class="fas fa-history"></i>
+                        <span class="history-query">${item.query}</span>
+                        <span class="history-count">${item.resultCount} results</span>
+                    </div>
+                `).join('');
+                
+                document.getElementById('searchHistorySection').style.display = 'block';
+            }
+        }
+        
+        // Show saved searches
+        function showSavedSearches() {
+            const saved = advancedSearchManager.savedSearches;
+            if (saved.length > 0) {
+                const container = document.getElementById('savedSearchesGrid');
+                container.innerHTML = saved.map(search => `
+                    <div class="saved-search-item">
+                        <div class="saved-search-info">
+                            <h3>${search.name}</h3>
+                            <p>Query: "${search.query}"</p>
+                            <small>Saved: ${new Date(search.dateCreated).toLocaleDateString()}</small>
+                        </div>
+                        <div class="saved-search-actions">
+                            <button class="btn btn-primary" onclick="loadSavedSearch('${search.id}')">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                            <button class="btn btn-secondary" onclick="deleteSavedSearch('${search.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                document.getElementById('savedSearchesSection').style.display = 'block';
+            }
+        }
+        
+        // Load saved search
+        function loadSavedSearch(searchId) {
+            const search = advancedSearchManager.savedSearches.find(s => s.id === searchId);
+            if (search) {
+                document.getElementById('searchQuery').value = search.query;
+                advancedSearchManager.currentFilters = { ...advancedSearchManager.currentFilters, ...search.filters };
+                performSearch();
+            }
+        }
+        
+        // Delete saved search
+        function deleteSavedSearch(searchId) {
+            if (confirm('Are you sure you want to delete this saved search?')) {
+                advancedSearchManager.savedSearches = advancedSearchManager.savedSearches.filter(s => s.id !== searchId);
+                advancedSearchManager.saveSavedSearches();
+                showSavedSearches();
+            }
+        }
+    </script>
+</body>
+</html>
+

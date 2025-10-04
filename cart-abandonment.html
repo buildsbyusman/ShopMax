@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Abandonment Recovery - ShopMax Admin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>ShopMax</h1>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="cj-products.html">CJ Dropshipping</a></li>
+                        <li><a href="bundles.html">Bundles</a></li>
+                        <li><a href="search.html">Search</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="deals.html">Deals</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search products...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="user-actions">
+                        <a href="wishlist.html" class="wishlist-icon">
+                            <i class="fas fa-heart"></i>
+                            <span class="wishlist-count" id="wishlistCount">0</span>
+                        </a>
+                        <button class="cart-icon" onclick="toggleCart()">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </button>
+                        <a href="login.html" class="user-icon">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="cart-abandonment-page">
+        <div class="container">
+            <div class="page-header">
+                <h1>Cart Abandonment Recovery</h1>
+                <p>Monitor and manage cart abandonment recovery campaigns</p>
+            </div>
+
+            <!-- Recovery Dashboard -->
+            <section class="recovery-dashboard">
+                <h2>Recovery Analytics</h2>
+                <div class="analytics-grid" id="recoveryAnalytics">
+                    <!-- Analytics cards will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Active Campaigns -->
+            <section class="campaigns-section">
+                <h3>Active Recovery Campaigns</h3>
+                <div class="campaigns-grid" id="activeCampaigns">
+                    <!-- Campaign cards will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Recovery Strategy Settings -->
+            <section class="strategy-settings">
+                <h3>Recovery Strategy Settings</h3>
+                <div class="strategy-list" id="strategySettings">
+                    <!-- Strategy settings will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Test Recovery Campaigns -->
+            <section class="test-section">
+                <h3>Test Recovery Campaigns</h3>
+                <div class="test-controls">
+                    <button class="btn btn-primary" onclick="testExitIntentPopup()">
+                        <i class="fas fa-mouse-pointer"></i> Test Exit Intent Popup
+                    </button>
+                    <button class="btn btn-secondary" onclick="testEmailReminder()">
+                        <i class="fas fa-envelope"></i> Test Email Reminder
+                    </button>
+                    <button class="btn btn-secondary" onclick="testPushNotification()">
+                        <i class="fas fa-bell"></i> Test Push Notification
+                    </button>
+                </div>
+            </section>
+
+            <!-- Recovery Templates -->
+            <section class="templates-section">
+                <h3>Email Templates</h3>
+                <div class="templates-grid" id="emailTemplates">
+                    <!-- Email templates will be loaded here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ShopMax</h3>
+                    <p>Your premier destination for quality products and exceptional service.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to get updates on new products and exclusive offers.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button>Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ShopMax. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div id="cartRecommendations">
+            <!-- Cart recommendations will be loaded here -->
+        </div>
+        <div id="cartCrossSell">
+            <!-- Cross-sell items will be loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: $<span id="cartTotal">0.00</span></strong>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/advanced-cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/compare.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/recommendations.js"></script>
+    <script src="js/bundles.js"></script>
+    <script src="js/advanced-search.js"></script>
+    <script src="js/cart-abandonment.js"></script>
+    <script>
+        // Initialize cart abandonment dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            renderRecoveryAnalytics();
+            renderActiveCampaigns();
+            renderStrategySettings();
+            renderEmailTemplates();
+        });
+
+        // Render recovery analytics
+        function renderRecoveryAnalytics() {
+            const analytics = cartAbandonmentManager.getAnalytics();
+            const container = document.getElementById('recoveryAnalytics');
+            
+            container.innerHTML = `
+                <div class="analytics-card">
+                    <div class="value">${analytics.totalAbandonments}</div>
+                    <div class="label">Total Abandonments</div>
+                </div>
+                <div class="analytics-card">
+                    <div class="value">${analytics.recoveredCarts}</div>
+                    <div class="label">Recovered Carts</div>
+                </div>
+                <div class="analytics-card">
+                    <div class="value">${analytics.recoveryRate.toFixed(1)}%</div>
+                    <div class="label">Recovery Rate</div>
+                </div>
+                <div class="analytics-card">
+                    <div class="value">${Math.round(analytics.averageRecoveryTime / (60 * 60 * 1000))}h</div>
+                    <div class="label">Avg Recovery Time</div>
+                </div>
+            `;
+        }
+
+        // Render active campaigns
+        function renderActiveCampaigns() {
+            const campaigns = cartAbandonmentManager.getRecoveryCampaigns();
+            const container = document.getElementById('activeCampaigns');
+            
+            if (campaigns.length === 0) {
+                container.innerHTML = '<p>No active campaigns at the moment.</p>';
+                return;
+            }
+
+            container.innerHTML = campaigns.map(campaign => `
+                <div class="campaign-card">
+                    <div class="campaign-header">
+                        <h4 class="campaign-name">${campaign.strategyId.replace(/_/g, ' ').toUpperCase()}</h4>
+                        <span class="campaign-status ${campaign.status}">${campaign.status}</span>
+                    </div>
+                    <div class="campaign-details">
+                        <div class="campaign-detail">
+                            <span class="label">Session ID:</span>
+                            <span class="value">${campaign.sessionId}</span>
+                        </div>
+                        <div class="campaign-detail">
+                            <span class="label">Scheduled:</span>
+                            <span class="value">${new Date(campaign.scheduledTime).toLocaleString()}</span>
+                        </div>
+                        <div class="campaign-detail">
+                            <span class="label">Attempts:</span>
+                            <span class="value">${campaign.attempts}/${campaign.maxAttempts}</span>
+                        </div>
+                    </div>
+                    <div class="campaign-actions">
+                        <button class="btn btn-primary" onclick="executeCampaign('${campaign.id}')">
+                            Execute Now
+                        </button>
+                        <button class="btn btn-secondary" onclick="cancelCampaign('${campaign.id}')">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render strategy settings
+        function renderStrategySettings() {
+            const strategies = cartAbandonmentManager.recoveryStrategies;
+            const container = document.getElementById('strategySettings');
+            
+            container.innerHTML = strategies.map(strategy => `
+                <div class="strategy-item">
+                    <div class="strategy-info">
+                        <h4 class="strategy-name">${strategy.name}</h4>
+                        <p class="strategy-description">
+                            ${strategy.type.toUpperCase()} - ${strategy.trigger.replace(/_/g, ' ')} 
+                            ${strategy.delay > 0 ? `(${Math.round(strategy.delay / (60 * 1000))} min delay)` : ''}
+                        </p>
+                    </div>
+                    <div class="strategy-controls">
+                        <div class="toggle-switch ${strategy.enabled ? 'active' : ''}" 
+                             onclick="toggleStrategy('${strategy.id}')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="testRecoveryCampaign('${strategy.id}')">
+                            Test
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render email templates
+        function renderEmailTemplates() {
+            const templates = cartAbandonmentManager.emailTemplates;
+            const container = document.getElementById('emailTemplates');
+            
+            container.innerHTML = Object.entries(templates).map(([key, template]) => `
+                <div class="template-card">
+                    <div class="template-header">
+                        <h4>${key.replace(/_/g, ' ').toUpperCase()}</h4>
+                        <span class="template-type">Email Template</span>
+                    </div>
+                    <div class="template-content">
+                        <h5>Subject: ${template.subject}</h5>
+                        <p>Preview: ${template.preview}</p>
+                        <div class="template-actions">
+                            <button class="btn btn-primary" onclick="previewTemplate('${key}')">
+                                Preview
+                            </button>
+                            <button class="btn btn-secondary" onclick="editTemplate('${key}')">
+                                Edit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Test functions
+        function testExitIntentPopup() {
+            const testSession = {
+                id: 'test_session',
+                cartItems: [
+                    {
+                        id: '1',
+                        name: 'Test Product',
+                        price: 29.99,
+                        quantity: 1,
+                        image: 'https://via.placeholder.com/100x100?text=Test'
+                    }
+                ]
+            };
+            cartAbandonmentManager.showExitIntentPopup(testSession);
+        }
+
+        function testEmailReminder() {
+            cartAbandonmentManager.testRecoveryCampaign('email_reminder_1');
+        }
+
+        function testPushNotification() {
+            if ('Notification' in window) {
+                if (Notification.permission === 'granted') {
+                    cartAbandonmentManager.testRecoveryCampaign('push_notification');
+                } else if (Notification.permission !== 'denied') {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === 'granted') {
+                            cartAbandonmentManager.testRecoveryCampaign('push_notification');
+                        }
+                    });
+                }
+            }
+        }
+
+        function toggleStrategy(strategyId) {
+            const strategy = cartAbandonmentManager.recoveryStrategies.find(s => s.id === strategyId);
+            if (strategy) {
+                strategy.enabled = !strategy.enabled;
+                renderStrategySettings();
+            }
+        }
+
+        function executeCampaign(campaignId) {
+            const campaign = cartAbandonmentManager.abandonmentData.campaigns.find(c => c.id === campaignId);
+            if (campaign) {
+                cartAbandonmentManager.executeRecoveryCampaign(campaign);
+                renderActiveCampaigns();
+            }
+        }
+
+        function cancelCampaign(campaignId) {
+            const campaign = cartAbandonmentManager.abandonmentData.campaigns.find(c => c.id === campaignId);
+            if (campaign) {
+                campaign.status = 'cancelled';
+                renderActiveCampaigns();
+            }
+        }
+
+        function previewTemplate(templateKey) {
+            const template = cartAbandonmentManager.emailTemplates[templateKey];
+            if (template) {
+                alert(`Template Preview:\n\nSubject: ${template.subject}\n\nPreview: ${template.preview}`);
+            }
+        }
+
+        function editTemplate(templateKey) {
+            alert(`Edit template: ${templateKey}\n\nThis would open a template editor in a real application.`);
+        }
+    </script>
+</body>
+</html>
+

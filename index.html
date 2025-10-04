@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopMax - Professional E-commerce Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/accessibility.css">
+    <link rel="stylesheet" href="css/product-comparison.css">
+    <link rel="stylesheet" href="css/quick-view.css">
+    <link rel="stylesheet" href="css/wishlist.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1>ShopMax</h1>
+                </div>
+            <div class="search-bar">
+                <button class="voice-search-btn" id="voiceSearchBtn" title="Voice Search" onclick="startVoiceSearch()">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <input type="text" placeholder="Search products..." id="searchInput">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+                <div class="header-actions">
+                    <a href="login.html" class="auth-link">Login</a>
+                    <a href="register.html" class="auth-link">Register</a>
+                    <div class="wishlist-icon" id="wishlistIcon" onclick="window.wishlistSidebar.open()">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count" id="wishlistCount">0</span>
+                    </div>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                    <div class="comparison-btn" onclick="productComparison.openModal()">
+                        <i class="fas fa-balance-scale"></i>
+                        <span class="comparison-count" id="comparisonCount">0</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="main-nav" id="main-navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="cj-products.html">CJ Dropshipping</a></li>
+                    <li><a href="bundles.html">Bundles</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Mobile Navigation -->
+            <nav class="mobile-nav" id="mobileNav">
+                <div class="mobile-nav-header">
+                    <h3>Menu</h3>
+                    <button class="mobile-nav-close" onclick="toggleMobileMenu()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <ul class="mobile-nav-list">
+                    <li><a href="index.html" onclick="toggleMobileMenu()">Home</a></li>
+                    <li><a href="products.html" onclick="toggleMobileMenu()">Products</a></li>
+                    <li><a href="cj-products.html" onclick="toggleMobileMenu()">CJ Dropshipping</a></li>
+                    <li><a href="bundles.html" onclick="toggleMobileMenu()">Bundles</a></li>
+                    <li><a href="search.html" onclick="toggleMobileMenu()">Search</a></li>
+                    <li><a href="categories.html" onclick="toggleMobileMenu()">Categories</a></li>
+                    <li><a href="deals.html" onclick="toggleMobileMenu()">Deals</a></li>
+                    <li><a href="about.html" onclick="toggleMobileMenu()">About</a></li>
+                    <li><a href="contact.html" onclick="toggleMobileMenu()">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Discover Amazing Products</h2>
+            <p>Shop from thousands of products with fast shipping and great prices</p>
+            <button class="cta-btn" onclick="window.location.href='products.html'">Shop Now</button>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="featured-categories">
+        <div class="container">
+            <h2>Shop by Category</h2>
+            <div class="categories-grid">
+                <div class="category-card" onclick="filterByCategory('electronics')">
+                    <i class="fas fa-laptop"></i>
+                    <h3>Electronics</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('fashion')">
+                    <i class="fas fa-tshirt"></i>
+                    <h3>Fashion</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('home')">
+                    <i class="fas fa-home"></i>
+                    <h3>Home & Garden</h3>
+                </div>
+                <div class="category-card" onclick="filterByCategory('sports')">
+                    <i class="fas fa-dumbbell"></i>
+                    <h3>Sports</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products">
+        <div class="container">
+            <h2>Featured Products</h2>
+            <div class="products-grid" id="featuredProducts">
+                <!-- Products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Personalized Recommendations -->
+    <section class="recommendations-section">
+        <div class="container">
+            <div id="personalizedRecommendations">
+                <!-- Personalized recommendations will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending CJ Products -->
+    <section class="recommendations-section">
+        <div class="container">
+            <div id="trendingRecommendations">
+                <!-- Trending CJ products will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Bundles -->
+    <section class="all-bundles-section">
+        <div class="container">
+            <div id="popularBundles">
+                <!-- Popular bundles will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter for the latest deals and products</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ShopMax</h3>
+                    <p>Your trusted e-commerce platform for quality products at great prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="returns.html">Returns</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="support.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.amazon.com" target="_blank" title="Amazon"><i class="fab fa-amazon"></i></a>
+                        <a href="https://www.facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.twitter.com" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ShopMax. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div id="cartRecommendations">
+            <!-- Cart recommendations will be loaded here -->
+        </div>
+        <div id="cartCrossSell">
+            <!-- Cross-sell items will be loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: $<span id="cartTotal">0.00</span></strong>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Checkout</button>
+        </div>
+    </div>
+
+    </main>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/advanced-cart.js"></script>
+    <script src="js/cart-abandonment.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/compare.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/recommendations.js"></script>
+    <script src="js/bundles.js"></script>
+    <script src="js/advanced-search.js"></script>
+    <script src="js/loading-utils.js"></script>
+    <script src="js/error-handler.js"></script>
+    <script src="js/accessibility-utils.js"></script>
+    <script src="js/performance-utils.js"></script>
+    <script src="js/product-comparison.js"></script>
+    <script src="js/recently-viewed.js"></script>
+    <script src="js/quick-view.js"></script>
+    <script>
+        // Initialize recommendations and bundles on homepage
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show page loader
+            if (window.loadingManager) {
+                window.loadingManager.showPageLoader('Loading ShopMax...');
+            }
+            
+            // Simulate loading time
+            setTimeout(() => {
+                // Load personalized recommendations
+                recommendationsSystem.renderRecommendations('personalizedRecommendations', 'personalized');
+                
+                // Load trending CJ products
+                recommendationsSystem.renderRecommendations('trendingRecommendations', 'trending');
+                
+                // Load popular bundles
+                bundlesManager.renderBundleSection('popularBundles', null, 'all_bundles');
+                
+                // Setup search functionality
+                const searchInput = document.querySelector('.search-bar input');
+                if (searchInput) {
+                    searchInput.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            const query = this.value.trim();
+                            if (query) {
+                                window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                            }
+                        }
+                    });
+                }
+                
+                // Hide page loader
+                if (window.loadingManager) {
+                    window.loadingManager.hidePageLoader();
+                }
+                
+                // Welcome notification removed to reduce popups
+                
+                // Initialize mobile carousels
+                initializeMobileCarousels();
+                
+                // Add test products for demo
+                setTimeout(() => {
+                    // Add test product to wishlist
+                    if (window.wishlistSystem) {
+                        window.wishlistSystem.addToWishlist('1', {
+                            id: '1',
+                            title: 'Test Product',
+                            price: 29.99,
+                            image: 'https://via.placeholder.com/300x300'
+                        });
+                    }
+                    
+                    // Add test product to cart
+                    if (typeof addToCart === 'function') {
+                        addToCart('1', 2);
+                    }
+                }, 3000);
+            }, 1500);
+        });
+
+        // Voice Search Functionality
+        let recognition = null;
+        let isListening = false;
+
+        function startVoiceSearch() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+            
+            const voiceBtn = document.getElementById('voiceSearchBtn');
+            const searchInput = document.getElementById('searchInput');
+            
+            recognition.onstart = function() {
+                isListening = true;
+                voiceBtn.classList.add('listening');
+                voiceBtn.innerHTML = '<i class="fas fa-stop"></i>';
+                voiceBtn.title = 'Stop listening...';
+            };
+            
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                searchInput.value = transcript;
+                
+                // Automatically perform search after voice input
+                setTimeout(() => {
+                    const query = searchInput.value.trim();
+                    if (query) {
+                        window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                    }
+                }, 500);
+            };
+            
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error:', event.error);
+                resetVoiceButton();
+            };
+            
+            recognition.onend = function() {
+                resetVoiceButton();
+            };
+            
+            recognition.start();
+        }
+
+        function resetVoiceButton() {
+            isListening = false;
+            const voiceBtn = document.getElementById('voiceSearchBtn');
+            voiceBtn.classList.remove('listening');
+            voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+            voiceBtn.title = 'Voice Search';
+        }
+
+        // Mobile Menu Functionality
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            
+            if (mobileNav.classList.contains('active')) {
+                mobileNav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            } else {
+                mobileNav.classList.add('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+            }
+        }
+
+        // Mobile Carousel Functionality
+        function initializeMobileCarousels() {
+            if (window.innerWidth <= 768) {
+                // Initialize carousels for mobile view
+                initCarousel('featured-products', '.product-card');
+                initCarousel('trending-products', '.product-card');
+                initCarousel('recommended-products', '.product-card');
+                initCarousel('categories', '.category-card');
+            }
+        }
+
+        function initCarousel(containerId, itemSelector) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const items = container.querySelectorAll(itemSelector);
+            if (items.length <= 3) return; // No need for carousel if few items
+
+            // Add carousel wrapper
+            const carouselWrapper = document.createElement('div');
+            carouselWrapper.className = 'carousel-wrapper';
+            
+            const carousel = document.createElement('div');
+            carousel.className = 'carousel';
+            
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'carousel-btn prev';
+            prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'carousel-btn next';
+            nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+
+            // Move items to carousel
+            items.forEach(item => {
+                const carouselItem = document.createElement('div');
+                carouselItem.className = 'carousel-item';
+                carouselItem.appendChild(item.cloneNode(true));
+                carousel.appendChild(carouselItem);
+            });
+
+            carouselWrapper.appendChild(prevBtn);
+            carouselWrapper.appendChild(carousel);
+            carouselWrapper.appendChild(nextBtn);
+
+            // Replace original content
+            container.innerHTML = '';
+            container.appendChild(carouselWrapper);
+
+            // Add carousel functionality
+            let currentIndex = 0;
+            const itemsPerView = 2;
+            const totalItems = items.length;
+
+            function updateCarousel() {
+                const translateX = -currentIndex * (100 / itemsPerView);
+                carousel.style.transform = `translateX(${translateX}%)`;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < totalItems - itemsPerView) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+
+            updateCarousel();
+        }
+
+        // Re-initialize on window resize
+        window.addEventListener('resize', function() {
+            setTimeout(initializeMobileCarousels, 100);
+        });
+    </script>
+</body>
+</html>

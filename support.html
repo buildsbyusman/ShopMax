@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Support - ShopMax</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .policy-hero {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        .policy-hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .policy-content {
+            padding: 4rem 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .support-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .support-option {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .support-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: var(--primary-brown);
+        }
+        .support-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary-brown), var(--secondary-brown));
+        }
+        .support-option .icon {
+            background: linear-gradient(135deg, var(--primary-brown), var(--secondary-brown));
+            color: var(--white);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .support-option:hover .icon {
+            transform: scale(1.1);
+        }
+        .support-option h3 {
+            color: var(--primary-black);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        .support-option p {
+            color: var(--medium-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        .support-option .contact-info {
+            color: var(--primary-brown);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: auto;
+        }
+        .support-option .contact-info a {
+            color: var(--primary-brown);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .support-option .contact-info a:hover {
+            color: var(--secondary-brown);
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .support-options {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+            
+            .support-option {
+                min-height: 250px;
+                padding: 1.5rem;
+            }
+            
+            .support-option .icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .policy-content {
+                padding: 2rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .support-option {
+                min-height: 220px;
+                padding: 1rem;
+            }
+            
+            .support-option h3 {
+                font-size: 1.1rem;
+            }
+            
+            .support-option p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1><a href="index.html" style="color: var(--primary-brown); text-decoration: none;">ShopMax</a></h1>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products..." id="searchInput">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <a href="login.html" class="auth-link">Login</a>
+                    <a href="register.html" class="auth-link">Register</a>
+                    <div class="wishlist-icon" onclick="wishlistSidebar.open()">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count" id="wishlistCount">0</span>
+                    </div>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="cj-products.html">CJ Dropshipping</a></li>
+                    <li><a href="bundles.html">Bundles</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="policy-hero">
+        <div class="container">
+            <h1>Customer Support</h1>
+            <p>We're here to help! Get in touch with our support team.</p>
+        </div>
+    </section>
+
+    <section class="policy-content">
+        <div class="container">
+            <div class="support-options">
+                <div class="support-option">
+                    <div class="icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Support</h3>
+                    <p>Send us an email and we'll respond within 24 hours</p>
+                    <div class="contact-info">support@shopmax.com</div>
+                </div>
+
+                <div class="support-option">
+                    <div class="icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Phone Support</h3>
+                    <p>Call us for immediate assistance</p>
+                    <div class="contact-info">+1 (555) 123-4567</div>
+                </div>
+
+                <div class="support-option">
+                    <div class="icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Live Chat</h3>
+                    <p>Chat with our support team in real-time</p>
+                    <div class="contact-info">Available 9AM-6PM EST</div>
+                </div>
+
+                <div class="support-option">
+                    <div class="icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>FAQ</h3>
+                    <p>Find quick answers to common questions</p>
+                    <div class="contact-info"><a href="faq.html">View FAQ</a></div>
+                </div>
+            </div>
+
+            <div class="policy-section">
+                <h2>Support Hours</h2>
+                <p>Our customer support team is available:</p>
+                <ul>
+                    <li>Monday - Friday: 9:00 AM - 6:00 PM EST</li>
+                    <li>Saturday: 10:00 AM - 4:00 PM EST</li>
+                    <li>Sunday: Closed</li>
+                </ul>
+            </div>
+
+            <div class="policy-section">
+                <h2>Common Issues</h2>
+                <p>Here are some quick solutions to common problems:</p>
+                <ul>
+                    <li><strong>Order not received:</strong> Check your tracking number or contact us</li>
+                    <li><strong>Payment issues:</strong> Verify your payment information</li>
+                    <li><strong>Account problems:</strong> Try resetting your password</li>
+                    <li><strong>Return requests:</strong> Contact us within 30 days of delivery</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ShopMax</h3>
+                    <p>Your trusted e-commerce platform for quality products at great prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="returns.html">Returns</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="support.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ShopMax. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+</body>
+</html>

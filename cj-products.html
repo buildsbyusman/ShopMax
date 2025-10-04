@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CJ Dropshipping Products - ShopMax</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cj-products.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1><a href="index.html" style="color: var(--primary-brown); text-decoration: none;">ShopMax</a></h1>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search CJ products..." id="searchInput">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <a href="login.html" class="auth-link">Login</a>
+                    <a href="register.html" class="auth-link">Register</a>
+                    <div class="wishlist-icon" onclick="wishlistSidebar.open()">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count" id="wishlistCount">0</span>
+                    </div>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="cj-products.html" class="active">CJ Dropshipping</a></li>
+                    <li><a href="bundles.html">Bundles</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- CJ Products Hero Section -->
+    <section class="cj-hero">
+        <div class="container">
+            <div class="cj-hero-content">
+                <div class="cj-hero-text">
+                    <h1>CJ Dropshipping Products</h1>
+                    <p>Discover thousands of trending products from CJ Dropshipping with competitive prices and fast shipping worldwide.</p>
+                    <div class="cj-stats">
+                        <div class="stat">
+                            <span class="stat-number">10,000+</span>
+                            <span class="stat-label">Products</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Support</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">7-15</span>
+                            <span class="stat-label">Days Shipping</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cj-hero-image">
+                    <img src="https://via.placeholder.com/500x400?text=CJ+Dropshipping" alt="CJ Dropshipping">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CJ Products Section -->
+    <section class="cj-products-section">
+        <div class="container">
+            <div class="cj-products-header">
+                <h2>All CJ Dropshipping Products</h2>
+                <div class="cj-products-controls">
+                    <div class="filter-section">
+                        <select id="categoryFilter" onchange="filterCJProducts()">
+                            <option value="">All Categories</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="fashion">Fashion</option>
+                            <option value="home">Home & Garden</option>
+                            <option value="sports">Sports</option>
+                            <option value="beauty">Beauty</option>
+                            <option value="automotive">Automotive</option>
+                        </select>
+                        <select id="sortFilter" onchange="sortCJProducts()">
+                            <option value="default">Sort by</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="rating">Rating</option>
+                            <option value="newest">Newest</option>
+                            <option value="trending">Trending</option>
+                        </select>
+                        <select id="priceFilter" onchange="filterCJProducts()">
+                            <option value="">All Prices</option>
+                            <option value="0-10">$0 - $10</option>
+                            <option value="10-25">$10 - $25</option>
+                            <option value="25-50">$25 - $50</option>
+                            <option value="50-100">$50 - $100</option>
+                            <option value="100+">$100+</option>
+                        </select>
+                    </div>
+                    <div class="view-toggle">
+                        <button class="view-btn active" onclick="toggleCJView('grid')" id="gridView">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" onclick="toggleCJView('list')" id="listView">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cj-products-container">
+                <div class="cj-products-grid" id="cjProductsGrid">
+                    <!-- CJ Products will be loaded here -->
+                </div>
+            </div>
+
+            <div class="cj-pagination" id="cjPagination">
+                <!-- Pagination will be generated here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CJ Categories Section -->
+    <section class="cj-categories-section">
+        <div class="container">
+            <h2>Popular CJ Categories</h2>
+            <div class="cj-categories-grid">
+                <div class="cj-category-card" onclick="filterCJByCategory('electronics')">
+                    <div class="category-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3>Electronics</h3>
+                    <p>2,500+ products</p>
+                </div>
+                <div class="cj-category-card" onclick="filterCJByCategory('fashion')">
+                    <div class="category-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3>Fashion</h3>
+                    <p>1,800+ products</p>
+                </div>
+                <div class="cj-category-card" onclick="filterCJByCategory('home')">
+                    <div class="category-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Home & Garden</h3>
+                    <p>1,200+ products</p>
+                </div>
+                <div class="cj-category-card" onclick="filterCJByCategory('sports')">
+                    <div class="category-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Sports</h3>
+                    <p>900+ products</p>
+                </div>
+                <div class="cj-category-card" onclick="filterCJByCategory('beauty')">
+                    <div class="category-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Beauty</h3>
+                    <p>750+ products</p>
+                </div>
+                <div class="cj-category-card" onclick="filterCJByCategory('automotive')">
+                    <div class="category-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Automotive</h3>
+                    <p>600+ products</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CJ Features Section -->
+    <section class="cj-features-section">
+        <div class="container">
+            <h2>Why Choose CJ Dropshipping?</h2>
+            <div class="cj-features-grid">
+                <div class="cj-feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Fast Shipping</h3>
+                    <p>7-15 days worldwide shipping with tracking</p>
+                </div>
+                <div class="cj-feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Competitive Prices</h3>
+                    <p>Best wholesale prices with high profit margins</p>
+                </div>
+                <div class="cj-feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Quality Guarantee</h3>
+                    <p>All products are quality tested and verified</p>
+                </div>
+                <div class="cj-feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock customer support in multiple languages</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ShopMax</h3>
+                    <p>Your trusted e-commerce platform for quality products at great prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="returns.html">Returns</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="support.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ShopMax. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: $<span id="cartTotal">0.00</span></strong>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/compare.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/recommendations.js"></script>
+    <script src="js/cj-products.js"></script>
+</body>
+</html>

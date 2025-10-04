@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - ShopMax</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/product-detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1><a href="index.html" style="color: var(--primary-brown); text-decoration: none;">ShopMax</a></h1>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products..." id="searchInput">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <a href="login.html" class="auth-link">Login</a>
+                    <a href="register.html" class="auth-link">Register</a>
+                    <div class="wishlist-icon" onclick="wishlistSidebar.open()">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count" id="wishlistCount">0</span>
+                    </div>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="cj-products.html">CJ Dropshipping</a></li>
+                    <li><a href="bundles.html">Bundles</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <div class="container">
+            <ol>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Electronics</a></li>
+                <li><a href="#">Audio & Headphones</a></li>
+                <li class="current">Wireless Bluetooth Headphones</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail-section">
+        <div class="container">
+            <div class="product-detail-container">
+                <!-- Product Images -->
+                <div class="product-images">
+                    <div class="main-image-container">
+                        <div class="main-image" id="mainImage">
+                            <img src="https://via.placeholder.com/500x500?text=Wireless+Headphones" alt="Wireless Bluetooth Headphones" id="mainProductImage">
+                            <div class="image-zoom-overlay" id="zoomOverlay">
+                                <div class="zoom-lens"></div>
+                            </div>
+                        </div>
+                        <div class="image-actions">
+                            <button class="image-action-btn" onclick="toggleZoom()" title="Zoom">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
+                            <button class="image-action-btn" onclick="toggleFullscreen()" title="Fullscreen">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                            <button class="image-action-btn" onclick="shareProduct()" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="thumbnail-gallery">
+                        <div class="thumbnail active" onclick="changeMainImage('https://via.placeholder.com/500x500?text=Wireless+Headphones')">
+                            <img src="https://via.placeholder.com/100x100?text=Front" alt="Front View">
+                        </div>
+                        <div class="thumbnail" onclick="changeMainImage('https://via.placeholder.com/500x500?text=Side+View')">
+                            <img src="https://via.placeholder.com/100x100?text=Side" alt="Side View">
+                        </div>
+                        <div class="thumbnail" onclick="changeMainImage('https://via.placeholder.com/500x500?text=Back+View')">
+                            <img src="https://via.placeholder.com/100x100?text=Back" alt="Back View">
+                        </div>
+                        <div class="thumbnail" onclick="changeMainImage('https://via.placeholder.com/500x500?text=Detail+View')">
+                            <img src="https://via.placeholder.com/100x100?text=Detail" alt="Detail View">
+                        </div>
+                        <div class="thumbnail" onclick="changeMainImage('https://via.placeholder.com/500x500?text=In+Use')">
+                            <img src="https://via.placeholder.com/100x100?text=In+Use" alt="In Use">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="product-info">
+                    <div id="productBadges">
+                        <!-- Product badges will be loaded here -->
+                    </div>
+                    
+                    <h1 class="product-title">Wireless Bluetooth Headphones with Noise Cancellation</h1>
+                    
+                    <div class="product-rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-number">4.5</span>
+                        <a href="#reviews" class="rating-link">(2,847 ratings)</a>
+                        <span class="separator">|</span>
+                        <a href="#reviews" class="rating-link">2,847 customer reviews</a>
+                    </div>
+
+                    <div class="product-price">
+                        <span class="current-price">$79.99</span>
+                        <span class="original-price">$119.99</span>
+                        <span class="discount-percent">Save 33%</span>
+                        <div class="price-breakdown">
+                            <small>List Price: <span class="list-price">$119.99</span></small>
+                            <small>You Save: <span class="savings">$40.00 (33%)</span></small>
+                        </div>
+                    </div>
+
+                    <div class="product-availability">
+                        <div class="availability-info">
+                            <i class="fas fa-check-circle text-success"></i>
+                            <span>In Stock</span>
+                            <span class="stock-quantity">Only 12 left in stock - order soon</span>
+                        </div>
+                        <div class="shipping-info">
+                            <i class="fas fa-truck"></i>
+                            <span>FREE delivery <strong>Tomorrow, Jan 16</strong></span>
+                            <small>Order within 5 hrs 23 mins</small>
+                        </div>
+                    </div>
+
+                    <!-- Product Variants -->
+                    <div class="product-variants">
+                        <div class="variant-group">
+                            <label>Color:</label>
+                            <div class="variant-options">
+                                <button class="variant-option active" data-color="black" data-price="79.99">
+                                    <span class="color-swatch" style="background: #000;"></span>
+                                    Black
+                                </button>
+                                <button class="variant-option" data-color="white" data-price="79.99">
+                                    <span class="color-swatch" style="background: #fff; border: 1px solid #ccc;"></span>
+                                    White
+                                </button>
+                                <button class="variant-option" data-color="blue" data-price="84.99">
+                                    <span class="color-swatch" style="background: #0066cc;"></span>
+                                    Blue (+$5.00)
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="variant-group">
+                            <label>Size:</label>
+                            <div class="variant-options">
+                                <button class="variant-option active" data-size="standard">
+                                    Standard
+                                </button>
+                                <button class="variant-option" data-size="large">
+                                    Large (+$10.00)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quantity and Add to Cart -->
+                    <div class="purchase-section">
+                        <!-- Product Variants -->
+                        <div id="productVariants">
+                            <!-- Product variants will be loaded here -->
+                        </div>
+
+                        <div class="quantity-selector">
+                            <label>Quantity:</label>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                                <input type="number" id="quantity" value="1" min="1" max="10">
+                                <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="add-to-cart-section">
+                            <button class="btn btn-primary btn-large" onclick="addToCart()">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                            <button class="btn btn-secondary btn-large" onclick="buyNow()">
+                                Buy Now
+                            </button>
+                        </div>
+                        
+                        <div class="wishlist-section">
+                            <button class="wishlist-btn" onclick="toggleWishlist()">
+                                <i class="fas fa-heart"></i>
+                                Add to Wishlist
+                            </button>
+                            <button class="compare-btn" onclick="addToCompare()">
+                                <i class="fas fa-balance-scale"></i>
+                                Add to Compare
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Availability and Shipping Information -->
+                    <div id="availabilityInfo">
+                        <!-- Availability and shipping info will be loaded here -->
+                    </div>
+
+                    <!-- Shipping Calculator -->
+                    <div id="shippingCalculator">
+                        <!-- Shipping calculator will be loaded here -->
+                    </div>
+
+                    <!-- Product Features -->
+                    <div class="product-features">
+                        <h3>Key Features:</h3>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Active Noise Cancellation</li>
+                            <li><i class="fas fa-check"></i> 30-hour battery life</li>
+                            <li><i class="fas fa-check"></i> Quick charge (3 min = 3 hours)</li>
+                            <li><i class="fas fa-check"></i> Premium sound quality</li>
+                            <li><i class="fas fa-check"></i> Comfortable over-ear design</li>
+                        </ul>
+                    </div>
+
+                    <!-- Delivery Options -->
+                    <div class="delivery-options">
+                        <h3>Delivery Options:</h3>
+                        <div class="delivery-option">
+                            <input type="radio" id="standard" name="delivery" checked>
+                            <label for="standard">
+                                <strong>FREE Standard Delivery</strong>
+                                <span>Tomorrow, Jan 16</span>
+                            </label>
+                        </div>
+                        <div class="delivery-option">
+                            <input type="radio" id="express" name="delivery">
+                            <label for="express">
+                                <strong>Express Delivery - $9.99</strong>
+                                <span>Today, Jan 15 by 8 PM</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Details Tabs -->
+    <section class="product-tabs-section">
+        <div class="container">
+            <div class="product-tabs">
+                <button class="tab-btn active" onclick="showTab('description')">Description</button>
+                <button class="tab-btn" onclick="showTab('specifications')">Specifications</button>
+                <button class="tab-btn" onclick="showTab('reviews')">Reviews (2,847)</button>
+                <button class="tab-btn" onclick="showTab('qa')">Q&A</button>
+                <button class="tab-btn" onclick="showTab('shipping')">Shipping & Returns</button>
+            </div>
+            
+            <div class="tab-content">
+                <div id="description" class="tab-panel active">
+                    <h3>Product Description</h3>
+                    <p>Experience premium sound quality with our Wireless Bluetooth Headphones featuring active noise cancellation technology. Perfect for music lovers, professionals, and anyone who values crystal-clear audio.</p>
+                    
+                    <h4>What's in the Box:</h4>
+                    <ul>
+                        <li>Wireless Bluetooth Headphones</li>
+                        <li>USB-C Charging Cable</li>
+                        <li>3.5mm Audio Cable</li>
+                        <li>Carrying Case</li>
+                        <li>Quick Start Guide</li>
+                        <li>Warranty Card</li>
+                    </ul>
+                </div>
+                
+                <div id="specifications" class="tab-panel">
+                    <h3>Technical Specifications</h3>
+                    <table class="specifications-table">
+                        <tr>
+                            <td>Brand</td>
+                            <td>ShopMax Audio</td>
+                        </tr>
+                        <tr>
+                            <td>Model</td>
+                            <td>SM-WH-2024</td>
+                        </tr>
+                        <tr>
+                            <td>Connectivity</td>
+                            <td>Bluetooth 5.0, 3.5mm Jack</td>
+                        </tr>
+                        <tr>
+                            <td>Battery Life</td>
+                            <td>30 hours (with ANC off), 20 hours (with ANC on)</td>
+                        </tr>
+                        <tr>
+                            <td>Charging Time</td>
+                            <td>2 hours (full charge), 3 minutes (3 hours playback)</td>
+                        </tr>
+                        <tr>
+                            <td>Weight</td>
+                            <td>250g</td>
+                        </tr>
+                        <tr>
+                            <td>Frequency Response</td>
+                            <td>20Hz - 20kHz</td>
+                        </tr>
+                        <tr>
+                            <td>Impedance</td>
+                            <td>32 ohms</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div id="reviews" class="tab-panel">
+                    <div class="reviews-summary">
+                        <div class="rating-breakdown">
+                            <div class="overall-rating">
+                                <span class="rating-number">4.5</span>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="total-reviews">2,847 reviews</span>
+                            </div>
+                            <div class="rating-bars">
+                                <div class="rating-bar">
+                                    <span>5★</span>
+                                    <div class="bar"><div class="fill" style="width: 70%;"></div></div>
+                                    <span>70%</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span>4★</span>
+                                    <div class="bar"><div class="fill" style="width: 20%;"></div></div>
+                                    <span>20%</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span>3★</span>
+                                    <div class="bar"><div class="fill" style="width: 5%;"></div></div>
+                                    <span>5%</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span>2★</span>
+                                    <div class="bar"><div class="fill" style="width: 3%;"></div></div>
+                                    <span>3%</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span>1★</span>
+                                    <div class="bar"><div class="fill" style="width: 2%;"></div></div>
+                                    <span>2%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="reviews-list">
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">JD</div>
+                                    <div class="reviewer-details">
+                                        <strong>John Doe</strong>
+                                        <div class="review-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-date">January 10, 2024</div>
+                            </div>
+                            <div class="review-content">
+                                <h4>Excellent sound quality and comfort</h4>
+                                <p>These headphones exceeded my expectations. The noise cancellation is incredible and the battery life is amazing. Very comfortable for long listening sessions.</p>
+                                <div class="review-images">
+                                    <img src="https://via.placeholder.com/100x100?text=Review+1" alt="Review Image">
+                                    <img src="https://via.placeholder.com/100x100?text=Review+2" alt="Review Image">
+                                </div>
+                            </div>
+                            <div class="review-helpful">
+                                <span>Was this review helpful?</span>
+                                <button class="helpful-btn">Yes (45)</button>
+                                <button class="helpful-btn">No (2)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="qa" class="tab-panel">
+                    <h3>Customer Questions & Answers</h3>
+                    <div class="qa-search">
+                        <input type="text" placeholder="Search questions and answers...">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    
+                    <div class="qa-list">
+                        <div class="qa-item">
+                            <div class="question">
+                                <strong>Q: Does this work with iPhone?</strong>
+                                <span class="qa-meta">Asked by Sarah M. on January 5, 2024</span>
+                            </div>
+                            <div class="answer">
+                                <strong>A:</strong> Yes, these headphones are fully compatible with iPhone and all Bluetooth-enabled devices.
+                                <span class="qa-meta">Answered by ShopMax Support on January 6, 2024</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="shipping" class="tab-panel">
+                    <h3>Shipping & Returns</h3>
+                    <div class="shipping-info">
+                        <h4>Shipping Information:</h4>
+                        <ul>
+                            <li>FREE standard shipping on orders over $25</li>
+                            <li>Express shipping available for $9.99</li>
+                            <li>Same-day delivery available in select areas</li>
+                            <li>International shipping available</li>
+                        </ul>
+                        
+                        <h4>Return Policy:</h4>
+                        <ul>
+                            <li>30-day return window</li>
+                            <li>FREE returns for defective items</li>
+                            <li>Original packaging required</li>
+                            <li>Refund processed within 5-7 business days</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Frequently Bought Together -->
+    <section class="frequently-bought-section">
+        <div class="container">
+            <h2>Frequently Bought Together</h2>
+            <div class="bundle-container">
+                <div class="bundle-items">
+                    <div class="bundle-item">
+                        <img src="https://via.placeholder.com/150x150?text=Headphones" alt="Headphones">
+                        <div class="bundle-item-info">
+                            <h4>Wireless Bluetooth Headphones</h4>
+                            <span class="bundle-price">$79.99</span>
+                        </div>
+                    </div>
+                    <div class="bundle-plus">+</div>
+                    <div class="bundle-item">
+                        <img src="https://via.placeholder.com/150x150?text=Case" alt="Carrying Case">
+                        <div class="bundle-item-info">
+                            <h4>Premium Carrying Case</h4>
+                            <span class="bundle-price">$19.99</span>
+                        </div>
+                    </div>
+                    <div class="bundle-plus">+</div>
+                    <div class="bundle-item">
+                        <img src="https://via.placeholder.com/150x150?text=Cable" alt="Cable">
+                        <div class="bundle-item-info">
+                            <h4>Extra USB-C Cable</h4>
+                            <span class="bundle-price">$9.99</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bundle-total">
+                    <div class="bundle-price-info">
+                        <span class="bundle-total-price">Total: $109.97</span>
+                        <span class="bundle-savings">You save $15.00</span>
+                    </div>
+                    <button class="btn btn-primary">Add all three to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customers Also Bought -->
+    <section class="customers-also-viewed">
+        <div class="container">
+            <div id="customersAlsoBought" data-product-id="1">
+                <!-- Customers also bought recommendations will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Frequently Bought Together -->
+    <section class="frequently-bought-section">
+        <div class="container">
+            <div id="frequentlyBoughtTogether" data-product-id="1">
+                <!-- Frequently bought together will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Bundles -->
+    <section class="product-bundles-section">
+        <div class="container">
+            <div id="productBundles" data-product-id="1">
+                <!-- Product bundles will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Videos & Multimedia -->
+    <section class="product-multimedia-section">
+        <div class="container">
+            <div id="productMultimedia" data-product-id="1">
+                <!-- Product multimedia content will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Specifications -->
+    <section class="product-specifications-section">
+        <div class="container">
+            <div id="productSpecifications" data-product-id="1">
+                <!-- Product specifications will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Tracking & History -->
+    <section class="price-tracking-section">
+        <div class="container">
+            <div id="priceTracking" data-product-id="1">
+                <!-- Price tracking and history will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details -->
+    <section class="technical-details-section">
+        <div class="container">
+            <div id="technicalDetails" data-product-id="1">
+                <!-- Technical details will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Q&A -->
+    <section class="product-qa-section">
+        <div class="container">
+            <div id="productQA" data-product-id="1">
+                <!-- Product Q&A will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Sharing -->
+    <section class="product-sharing-section">
+        <div class="container">
+            <div id="productSharing" data-product-id="1">
+                <!-- Product sharing will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Return and Exchange Policy -->
+    <section class="return-policy-section">
+        <div class="container">
+            <div id="returnPolicy" data-product-id="1">
+                <!-- Return and exchange policy will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Warranty Information -->
+    <section class="warranty-info-section">
+        <div class="container">
+            <div id="warrantyInfo" data-product-id="1">
+                <!-- Warranty information will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Guides and Manuals -->
+    <section class="installation-section">
+        <div class="container">
+            <div id="installationGuides" data-product-id="1">
+                <!-- Installation guides and manuals will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Size Guide and Fit Information -->
+    <section class="size-guide-section">
+        <div class="container">
+            <div id="sizeGuide" data-product-id="1">
+                <!-- Size guide and fit information will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Bulk Pricing and Quantity Discounts -->
+    <section class="bulk-pricing-section">
+        <div class="container">
+            <div id="bulkPricing" data-product-id="1">
+                <!-- Bulk pricing and quantity discounts will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Gift Options and Gift Wrapping -->
+    <section class="gift-options-section">
+        <div class="container">
+            <div id="giftOptions" data-product-id="1">
+                <!-- Gift options and gift wrapping will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscription and Auto-Reorder -->
+    <section class="subscription-section">
+        <div class="container">
+            <div id="subscription" data-product-id="1">
+                <!-- Subscription and auto-reorder will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Environmental and Sustainability Information -->
+    <section class="environmental-section">
+        <div class="container">
+            <div id="environmental" data-product-id="1">
+                <!-- Environmental and sustainability information will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Information -->
+    <section class="brand-info-section">
+        <div class="container">
+            <div id="brandInfo" data-product-id="1">
+                <!-- Brand information will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="recommendations-section">
+        <div class="container">
+            <div id="relatedProducts" data-product-id="1">
+                <!-- Related products will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ShopMax</h3>
+                    <p>Your trusted e-commerce platform for quality products at great prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="returns.html">Returns</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="support.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ShopMax. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: $<span id="cartTotal">0.00</span></strong>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/compare.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/recommendations.js"></script>
+    <script src="js/bundles.js"></script>
+    <script src="js/product-variants.js"></script>
+    <script src="js/shipping-availability.js"></script>
+    <script src="js/product-multimedia.js"></script>
+    <script src="js/product-specifications.js"></script>
+    <script src="js/product-badges.js"></script>
+    <script src="js/price-tracking.js"></script>
+    <script src="js/product-qa.js"></script>
+    <script src="js/product-sharing.js"></script>
+    <script src="js/product-returns.js"></script>
+    <script src="js/product-warranty.js"></script>
+    <script src="js/product-installation.js"></script>
+    <script src="js/product-size-guide.js"></script>
+    <script src="js/product-bulk-pricing.js"></script>
+    <script src="js/product-gift-options.js"></script>
+    <script src="js/product-subscription.js"></script>
+    <script src="js/product-environmental.js"></script>
+    <script src="js/product-brand.js"></script>
+    <script src="js/product-detail.js"></script>
+    <script>
+        // Initialize recommendations, bundles, variants, shipping, multimedia, specifications, badges, price tracking, and Q&A on product detail page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track product view
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id') || '1';
+            
+            // Track user behavior
+            recommendationsSystem.trackUserBehavior('view', productId);
+            
+            // Load product badges
+            productBadgesManager.renderProductBadges(productId, 'productBadges');
+            
+            // Load recommendations
+            recommendationsSystem.renderRecommendations('customersAlsoBought', 'customers_also_bought');
+            recommendationsSystem.renderRecommendations('relatedProducts', 'personalized');
+            
+            // Load bundles
+            bundlesManager.renderBundleSection('frequentlyBoughtTogether', productId, 'frequently_bought');
+            bundlesManager.renderBundleSection('productBundles', productId, 'bundles');
+            
+            // Load product variants
+            productVariantsManager.renderVariantSelector(productId, 'productVariants');
+            
+            // Load availability and shipping information
+            shippingAvailabilityManager.renderAvailabilityInfo(productId, 'availabilityInfo');
+            shippingAvailabilityManager.renderShippingCalculator(productId, 'shippingCalculator');
+            
+            // Load product multimedia
+            productMultimediaManager.renderMultimediaSection(productId, 'productMultimedia');
+            
+            // Load product specifications
+            productSpecificationsManager.renderSpecifications(productId, 'productSpecifications');
+            productSpecificationsManager.renderTechnicalDetails(productId, 'technicalDetails');
+            
+            // Load price tracking and history
+            priceTrackingManager.renderPriceTracking(productId, 'priceTracking');
+            
+            // Load product Q&A
+            productQAManager.renderQASection(productId, 'productQA');
+            
+            // Load product sharing
+            productSharingManager.renderSharingSection(productId, 'productSharing');
+            
+            // Load return and exchange policy
+            productReturnsManager.renderReturnPolicy(productId, 'returnPolicy');
+            
+            // Load warranty information
+            productWarrantyManager.renderWarrantyInfo(productId, 'warrantyInfo');
+            
+            // Load installation guides and manuals
+            productInstallationManager.renderInstallationSection(productId, 'installationGuides');
+            
+            // Load size guide and fit information
+            productSizeGuideManager.renderSizeGuide(productId, 'sizeGuide');
+            
+            
+            // Load bulk pricing and quantity discounts
+            productBulkPricingManager.renderBulkPricing(productId, 'bulkPricing');
+            
+            // Load gift options and gift wrapping
+            productGiftOptionsManager.renderGiftOptions(productId, 'giftOptions');
+            
+            // Load subscription and auto-reorder
+            productSubscriptionManager.renderSubscription(productId, 'subscription');
+            
+            // Load environmental and sustainability information
+            productEnvironmentalManager.renderEnvironmental(productId, 'environmental');
+            
+            // Load brand information
+            productBrandManager.renderBrandInfo(productId, 'brandInfo');
+        });
+    </script>
+</body>
+</html>

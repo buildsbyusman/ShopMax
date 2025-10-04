@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - ShopMax</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .policy-hero {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        .policy-hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .policy-content {
+            padding: 4rem 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            background: var(--white);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .faq-question {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .faq-question:hover {
+            background: var(--primary-brown);
+            color: var(--white);
+            border-color: var(--secondary-brown);
+        }
+        .faq-question h3 {
+            margin: 0;
+            color: var(--primary-black);
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .faq-question:hover h3 {
+            color: var(--white);
+        }
+        .faq-icon {
+            transition: all 0.3s ease;
+            color: var(--primary-brown);
+            font-size: 1.2rem;
+        }
+        .faq-question:hover .faq-icon {
+            color: var(--white);
+        }
+        .faq-item.active .faq-question {
+            background: var(--primary-brown);
+            color: var(--white);
+            border-color: var(--secondary-brown);
+        }
+        .faq-item.active .faq-question h3 {
+            color: var(--white);
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+            color: var(--white);
+        }
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+        .faq-item.active .faq-answer {
+            padding: 1.5rem;
+            max-height: 1000px;
+            border-top: 1px solid var(--light-gray);
+        }
+        .faq-answer p {
+            color: var(--medium-gray);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0.5rem 0;
+        }
+
+        /* Debug styles to ensure FAQ answers are visible */
+        .faq-item.active {
+            border: 2px solid var(--primary-brown);
+        }
+
+        .faq-item.active .faq-answer {
+            background: #f9f9f9;
+            border-left: 4px solid var(--primary-brown);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1><a href="index.html" style="color: var(--primary-brown); text-decoration: none;">ShopMax</a></h1>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products..." id="searchInput">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <a href="login.html" class="auth-link">Login</a>
+                    <a href="register.html" class="auth-link">Register</a>
+                    <div class="wishlist-icon" onclick="wishlistSidebar.open()">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count" id="wishlistCount">0</span>
+                    </div>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="cj-products.html">CJ Dropshipping</a></li>
+                    <li><a href="bundles.html">Bundles</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="policy-hero">
+        <div class="container">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about our products and services.</p>
+        </div>
+    </section>
+
+    <section class="policy-content">
+        <div class="container">
+            <!-- Test FAQ Item -->
+            <div class="faq-item" style="border: 2px solid #ff0000; margin-bottom: 2rem;">
+                <div class="faq-question" onclick="toggleFAQ(this)" style="background: #ffeeee;">
+                    <h3>🔴 TEST FAQ - CLICK HERE TO TEST</h3>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer" style="background: #eeffee;">
+                    <p><strong>✅ SUCCESS!</strong> If you can see this green text, the FAQ dropdown is working correctly! The arrow should rotate and this answer should appear when you click the red question above.</p>
+                    <p>This test FAQ has a red border and green background to make it very obvious when it's working.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How do I place an order?</h3>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>To place an order, simply browse our products, add items to your cart, and proceed to checkout. You'll need to provide shipping and payment information to complete your purchase.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>What payment methods do you accept?</h3>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, Apple Pay, Google Pay, and other secure payment methods.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How long does shipping take?</h3>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Standard shipping takes 5-7 business days, express shipping takes 2-3 business days, and overnight shipping delivers the next business day. International shipping times vary by destination.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Can I track my order?</h3>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! Once your order ships, you'll receive a tracking number via email. You can track your package using our tracking system or the carrier's website.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>What is your return policy?</h3>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We offer a 30-day return policy for most items. Items must be in original condition with tags attached. Some items may have different return policies.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How do I return an item?</h3>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Contact our customer service team to initiate a return. We'll provide you with a return label and instructions. Pack the item in its original packaging and ship it back to us.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Do you ship internationally?</h3>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we ship to over 50 countries worldwide. Shipping costs and delivery times vary by destination. Check our shipping page for more details.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Can I change or cancel my order?</h3>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>You can modify or cancel your order within 1 hour of placing it. After that, please contact our customer support team for assistance.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How do I create an account?</h3>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Click the "Register" button in the top right corner, fill out the registration form with your information, and verify your email address to activate your account.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>What if I forgot my password?</h3>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Click "Forgot Password" on the login page, enter your email address, and we'll send you a link to reset your password.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How do I contact customer service?</h3>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>You can contact us via email at support@shopmax.com, phone at +1 (555) 123-4567, or through our contact form. We're available Monday-Friday 9AM-6PM EST.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Do you offer discounts or promotions?</h3>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! We regularly offer discounts, promotions, and special deals. Subscribe to our newsletter and follow us on social media to stay updated on the latest offers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ShopMax</h3>
+                    <p>Your trusted e-commerce platform for quality products at great prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="returns.html">Returns</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="support.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ShopMax. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script>
+        // Simple and reliable FAQ toggle function
+        function toggleFAQ(element) {
+            // Get the parent FAQ item
+            const faqItem = element.closest('.faq-item');
+            
+            // Check if this item is already active
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQ items first
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // If the clicked item wasn't active, open it
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('FAQ page loaded - initializing...');
+            
+            // Add click listeners to all FAQ questions
+            const questions = document.querySelectorAll('.faq-question');
+            console.log('Found', questions.length, 'FAQ questions');
+            
+            questions.forEach((question, index) => {
+                question.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('FAQ question', index, 'clicked');
+                    toggleFAQ(this);
+                });
+                question.style.cursor = 'pointer';
+            });
+            
+            // Test the first FAQ item
+            const firstFAQ = document.querySelector('.faq-item');
+            if (firstFAQ) {
+                console.log('First FAQ item found:', firstFAQ);
+                // Auto-open the test FAQ after 2 seconds
+                setTimeout(() => {
+                    console.log('Auto-opening test FAQ...');
+                    firstFAQ.classList.add('active');
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

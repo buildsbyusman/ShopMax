@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - ShopMax</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* About Page Specific Styles */
+        .about-hero {
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--secondary-brown) 100%);
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .about-hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-section {
+            padding: 4rem 0;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .about-text h2 {
+            color: var(--primary-black);
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            color: var(--medium-gray);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-image {
+            background: var(--light-gray);
+            border-radius: 15px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--medium-gray);
+        }
+
+        /* Story Section Styles */
+        .story-section {
+            padding: 4rem 0;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            color: var(--primary-black);
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--medium-gray);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .story-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto 4rem auto;
+        }
+
+        .story-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-brown);
+            transform: translateX(-50%);
+        }
+
+        .story-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .story-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .story-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .story-year {
+            background: var(--primary-brown);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            min-width: 80px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .story-content {
+            flex: 1;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 0 2rem;
+            position: relative;
+        }
+
+        .story-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+        }
+
+        .story-item:nth-child(odd) .story-content::before {
+            right: -30px;
+            border-left-color: var(--white);
+            transform: translateY(-50%);
+        }
+
+        .story-item:nth-child(even) .story-content::before {
+            left: -30px;
+            border-right-color: var(--white);
+            transform: translateY(-50%);
+        }
+
+        .story-content h3 {
+            color: var(--primary-black);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .story-content p {
+            color: var(--medium-gray);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .story-icon {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .story-mission {
+            background: var(--light-gray);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .mission-content h3 {
+            color: var(--primary-black);
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-content p {
+            color: var(--medium-gray);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .mission-visual {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .mission-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .mission-card i {
+            font-size: 2.5rem;
+            color: var(--primary-brown);
+            margin-bottom: 1rem;
+        }
+
+        .mission-card h4 {
+            color: var(--primary-black);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .mission-card p {
+            color: var(--medium-gray);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .story-timeline::before {
+                left: 30px;
+            }
+
+            .story-item {
+                flex-direction: column !important;
+                align-items: flex-start;
+                padding-left: 60px;
+            }
+
+            .story-year {
+                position: absolute;
+                left: -40px;
+                top: 0;
+            }
+
+            .story-content {
+                margin: 0;
+                margin-top: 1rem;
+            }
+
+            .story-content::before {
+                display: none;
+            }
+
+            .story-icon {
+                position: absolute;
+                left: -30px;
+                top: 0;
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+
+            .mission-visual {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.1);
+            pointer-events: none;
+        }
+
+        .stats-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+            justify-items: center;
+        }
+
+        .stat-item {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+            color: var(--white);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--white);
+            opacity: 0.95;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .values-section {
+            padding: 4rem 0;
+            background: var(--light-gray);
+        }
+
+        .values-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: stretch;
+        }
+
+        .value-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 280px;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-brown);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        .value-card h3 {
+            color: var(--primary-black);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .value-card p {
+            color: var(--medium-gray);
+            line-height: 1.6;
+            text-align: center;
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .team-section {
+            padding: 4rem 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 3rem;
+            color: var(--medium-gray);
+        }
+
+        .member-name {
+            color: var(--primary-black);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            color: var(--primary-brown);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .member-bio {
+            color: var(--medium-gray);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .timeline-section {
+            padding: 4rem 0;
+            background: var(--light-gray);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-brown);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 2rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 2rem;
+        }
+
+        .timeline-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -30px;
+            border-left-color: var(--white);
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -30px;
+            border-right-color: var(--white);
+            transform: translateY(-50%);
+        }
+
+        .timeline-year {
+            color: var(--primary-brown);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            color: var(--primary-black);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-description {
+            color: var(--medium-gray);
+            line-height: 1.6;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary-brown);
+        }
+
+        .btn-primary:hover {
+            background: var(--light-gray);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary-brown);
+        }
+
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .stat-item {
+                padding: 1.5rem;
+                min-height: 100px;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .value-card {
+                min-height: 250px;
+                padding: 1.5rem;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 3rem !important;
+                padding-right: 0 !important;
+            }
+
+            .timeline-content::before {
+                left: -30px !important;
+                border-right-color: var(--white) !important;
+                border-left-color: transparent !important;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1><a href="index.html" style="color: var(--primary-brown); text-decoration: none;">ShopMax</a></h1>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products..." id="searchInput">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <a href="login.html" class="auth-link">Login</a>
+                    <a href="register.html" class="auth-link">Register</a>
+                    <div class="wishlist-icon" onclick="wishlistSidebar.open()">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count" id="wishlistCount">0</span>
+                    </div>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="cj-products.html">CJ Dropshipping</a></li>
+                    <li><a href="bundles.html">Bundles</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- About Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>About ShopMax</h1>
+            <p>Your trusted partner in e-commerce, delivering quality products and exceptional service since 2020.</p>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="story-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Story</h2>
+                <p class="section-subtitle">From humble beginnings to global reach</p>
+            </div>
+            
+            <div class="story-timeline">
+                <div class="story-item">
+                    <div class="story-year">2020</div>
+                    <div class="story-content">
+                        <h3>The Beginning</h3>
+                        <p>Founded with a simple vision: to make quality products accessible to everyone, everywhere. What started as a small startup has grown into something extraordinary.</p>
+                    </div>
+                    <div class="story-icon">🚀</div>
+                </div>
+                
+                <div class="story-item">
+                    <div class="story-year">2021</div>
+                    <div class="story-content">
+                        <h3>Building Trust</h3>
+                        <p>We focused on building relationships with reliable suppliers and creating a customer-first experience that puts your needs at the center of everything we do.</p>
+                    </div>
+                    <div class="story-icon">🤝</div>
+                </div>
+                
+                <div class="story-item">
+                    <div class="story-year">2022</div>
+                    <div class="story-content">
+                        <h3>Expanding Horizons</h3>
+                        <p>Launched our comprehensive e-commerce platform, offering thousands of products across multiple categories with cutting-edge technology.</p>
+                    </div>
+                    <div class="story-icon">🌍</div>
+                </div>
+                
+                <div class="story-item">
+                    <div class="story-year">2023</div>
+                    <div class="story-content">
+                        <h3>Global Reach</h3>
+                        <p>Today, we serve customers worldwide with our commitment to quality, competitive pricing, and exceptional customer service.</p>
+                    </div>
+                    <div class="story-icon">🏆</div>
+                </div>
+            </div>
+            
+            <div class="story-mission">
+                <div class="mission-content">
+                    <h3>Our Mission</h3>
+                    <p>We believe that shopping should be simple, enjoyable, and trustworthy. Our platform combines cutting-edge technology with human-centered design to create an experience that delights customers and builds lasting relationships.</p>
+                </div>
+                <div class="mission-visual">
+                    <div class="mission-card">
+                        <i class="fas fa-heart"></i>
+                        <h4>Customer First</h4>
+                        <p>Your satisfaction is our priority</p>
+                    </div>
+                    <div class="mission-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Trust & Quality</h4>
+                        <p>Reliable products and secure transactions</p>
+                    </div>
+                    <div class="mission-card">
+                        <i class="fas fa-rocket"></i>
+                        <h4>Innovation</h4>
+                        <p>Constantly improving your experience</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">500K+</span>
+                    <span class="stat-label">Happy Customers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">Products</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Countries Served</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">99.9%</span>
+                    <span class="stat-label">Uptime</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="color: var(--primary-black); font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem;">Our Values</h2>
+                <p style="color: var(--medium-gray); font-size: 1.1rem;">The principles that guide everything we do</p>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Customer First</h3>
+                    <p>Our customers are at the heart of everything we do. We listen, learn, and continuously improve to exceed your expectations and provide the best possible shopping experience.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Trust & Quality</h3>
+                    <p>We partner only with verified suppliers and rigorously test all products to ensure they meet our high standards for quality, safety, and reliability.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>We embrace new technologies and innovative solutions to make shopping faster, easier, and more enjoyable for our customers.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Sustainability</h3>
+                    <p>We're committed to responsible business practices, including eco-friendly packaging, sustainable sourcing, and reducing our environmental impact.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community</h3>
+                    <p>We believe in building strong relationships with our customers, suppliers, and the communities we serve, creating a positive impact together.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Excellence</h3>
+                    <p>We strive for excellence in every aspect of our business, from product selection to customer service, always aiming to be the best.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="color: var(--primary-black); font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem;">Meet Our Team</h2>
+                <p style="color: var(--medium-gray); font-size: 1.1rem;">The passionate people behind ShopMax</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-avatar">👨‍💼</div>
+                    <div class="member-name">John Smith</div>
+                    <div class="member-role">CEO & Founder</div>
+                    <div class="member-bio">Visionary leader with 15+ years in e-commerce, passionate about creating exceptional customer experiences.</div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-avatar">👩‍💻</div>
+                    <div class="member-name">Sarah Johnson</div>
+                    <div class="member-role">CTO</div>
+                    <div class="member-bio">Technology expert focused on building scalable, secure, and innovative e-commerce solutions.</div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-avatar">👨‍🎨</div>
+                    <div class="member-name">Mike Chen</div>
+                    <div class="member-role">Head of Design</div>
+                    <div class="member-bio">Creative director ensuring our platform is not only functional but beautiful and user-friendly.</div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-avatar">👩‍💼</div>
+                    <div class="member-name">Emily Davis</div>
+                    <div class="member-role">Head of Operations</div>
+                    <div class="member-bio">Operations specialist ensuring smooth logistics, inventory management, and customer satisfaction.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="color: var(--primary-black); font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem;">Our Journey</h2>
+                <p style="color: var(--medium-gray); font-size: 1.1rem;">Key milestones in our growth story</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020</div>
+                        <div class="timeline-title">Company Founded</div>
+                        <div class="timeline-description">ShopMax was founded with a vision to revolutionize online shopping and make quality products accessible to everyone.</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2021</div>
+                        <div class="timeline-title">First 10K Customers</div>
+                        <div class="timeline-description">Reached our first major milestone with 10,000 satisfied customers and expanded our product catalog to 1,000 items.</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2022</div>
+                        <div class="timeline-title">International Expansion</div>
+                        <div class="timeline-description">Launched international shipping to 25 countries and introduced our mobile app for iOS and Android.</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-title">CJ Dropshipping Partnership</div>
+                        <div class="timeline-description">Partnered with CJ Dropshipping to offer thousands of additional products and faster shipping options.</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2024</div>
+                        <div class="timeline-title">500K+ Customers</div>
+                        <div class="timeline-description">Celebrated reaching over 500,000 customers worldwide and launched our advanced AI-powered recommendation system.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Experience ShopMax?</h2>
+            <p>Join thousands of satisfied customers and discover amazing products at great prices.</p>
+            <div class="cta-buttons">
+                <a href="products.html" class="btn btn-primary">
+                    <i class="fas fa-shopping-bag"></i> Start Shopping
+                </a>
+                <a href="contact.html" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i> Get in Touch
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ShopMax</h3>
+                    <p>Your trusted e-commerce platform for quality products at great prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="returns.html">Returns</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="support.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ShopMax. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: $<span id="cartTotal">0.00</span></strong>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script>
+        // Initialize about page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add any page-specific initialization here
+            console.log('About page loaded');
+        });
+    </script>
+</body>
+</html>

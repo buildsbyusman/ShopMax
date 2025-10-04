@@ -1,0 +1,988 @@
+/* Brand Page Styles */
+.brand-page {
+    padding-top: 0;
+}
+
+/* Brand Hero Section */
+.brand-hero {
+    position: relative;
+    height: 60vh;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(139, 69, 19, 0.8) 100%);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: var(--white);
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+.brand-logo {
+    margin-bottom: 2rem;
+}
+
+.brand-logo img {
+    max-width: 300px;
+    height: auto;
+    filter: brightness(0) invert(1);
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero-actions .btn {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Brand Sections */
+.brand-overview,
+.brand-story,
+.brand-mission,
+.brand-vision {
+    padding: 4rem 0;
+    background: var(--white);
+}
+
+.brand-overview:nth-child(even),
+.brand-story:nth-child(even),
+.brand-mission:nth-child(even),
+.brand-vision:nth-child(even) {
+    background: var(--light-gray);
+}
+
+.brand-overview h2,
+.brand-story h2,
+.brand-mission h2,
+.brand-vision h2 {
+    color: var(--primary-black);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.brand-overview p,
+.brand-story p,
+.brand-mission p,
+.brand-vision p {
+    color: var(--medium-gray);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Brand Values */
+.brand-values {
+    padding: 4rem 0;
+    background: var(--light-gray);
+}
+
+.brand-values h2 {
+    color: var(--primary-black);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.value-card {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.value-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: var(--white);
+    font-size: 2rem;
+}
+
+.value-card h3 {
+    color: var(--primary-black);
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.value-card p {
+    color: var(--medium-gray);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Brand Stats */
+.brand-stats {
+    padding: 4rem 0;
+    background: var(--white);
+}
+
+.brand-stats h2 {
+    color: var(--primary-black);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.stat-card {
+    background: var(--light-gray);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    border: 2px solid var(--primary-brown);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(139, 69, 19, 0.2);
+}
+
+.stat-value {
+    color: var(--primary-brown);
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: var(--primary-black);
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Brand Awards */
+.brand-awards {
+    padding: 4rem 0;
+    background: var(--light-gray);
+}
+
+.brand-awards h2 {
+    color: var(--primary-black);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.awards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.award-card {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.award-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.award-image {
+    flex-shrink: 0;
+}
+
+.award-image img {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.award-content h3 {
+    color: var(--primary-black);
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.award-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.award-category {
+    background: var(--primary-brown);
+    color: var(--white);
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.award-year {
+    color: var(--medium-gray);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.award-content p {
+    color: var(--medium-gray);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Brand Team */
+.brand-team {
+    padding: 4rem 0;
+    background: var(--white);
+}
+
+.brand-team h2 {
+    color: var(--primary-black);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.team-card {
+    background: var(--light-gray);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.member-image {
+    margin-bottom: 1.5rem;
+}
+
+.member-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary-brown);
+}
+
+.member-info h3 {
+    color: var(--primary-black);
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.member-position {
+    color: var(--primary-brown);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.member-bio {
+    color: var(--medium-gray);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.linkedin-link {
+    color: var(--primary-brown);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.linkedin-link:hover {
+    color: var(--primary-black);
+}
+
+.linkedin-link i {
+    margin-right: 0.5rem;
+}
+
+/* Brand Locations */
+.brand-locations {
+    padding: 4rem 0;
+    background: var(--light-gray);
+}
+
+.brand-locations h2 {
+    color: var(--primary-black);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.locations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.location-card {
+    background: var(--white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.location-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.location-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.location-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.location-info {
+    padding: 1.5rem;
+}
+
+.location-info h3 {
+    color: var(--primary-black);
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.location-type {
+    color: var(--primary-brown);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+}
+
+.location-address,
+.location-phone {
+    color: var(--medium-gray);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+/* Brand Products */
+.brand-products {
+    padding: 4rem 0;
+    background: var(--white);
+}
+
+.brand-products h2 {
+    color: var(--primary-black);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-card {
+    background: var(--light-gray);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.product-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 1.5rem;
+}
+
+.product-info h3 {
+    color: var(--primary-black);
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.stars {
+    color: var(--warning-color);
+}
+
+.rating-text {
+    color: var(--medium-gray);
+    font-size: 0.9rem;
+}
+
+.product-price {
+    color: var(--primary-brown);
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.product-info .btn {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Brand Contact */
+.brand-contact {
+    padding: 4rem 0;
+    background: var(--light-gray);
+}
+
+.brand-contact h2 {
+    color: var(--primary-black);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-info h3,
+.contact-form h3 {
+    color: var(--primary-black);
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.contact-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-brown);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    flex-shrink: 0;
+}
+
+.contact-details .contact-label {
+    color: var(--primary-black);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.contact-details .contact-value {
+    color: var(--medium-gray);
+}
+
+.contact-form {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--light-gray);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-brown);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form .btn {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Brand Social */
+.brand-social {
+    padding: 4rem 0;
+    background: var(--white);
+}
+
+.brand-social h2 {
+    color: var(--primary-black);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background: var(--light-gray);
+    border-radius: 25px;
+    text-decoration: none;
+    color: var(--primary-black);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: var(--primary-brown);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.social-link i {
+    font-size: 1.2rem;
+}
+
+/* Brand Not Found */
+.brand-not-found {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--medium-gray);
+}
+
+.brand-not-found h2 {
+    color: var(--primary-black);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.brand-not-found p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+/* Animation Classes for Brand Page */
+@keyframes brandSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.value-card,
+.stat-card,
+.award-card,
+.team-card,
+.location-card,
+.product-card {
+    animation: brandSlideIn 0.6s ease forwards;
+}
+
+.value-card:nth-child(1) { animation-delay: 0.1s; }
+.value-card:nth-child(2) { animation-delay: 0.2s; }
+.value-card:nth-child(3) { animation-delay: 0.3s; }
+.value-card:nth-child(4) { animation-delay: 0.4s; }
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }
+.stat-card:nth-child(5) { animation-delay: 0.5s; }
+.stat-card:nth-child(6) { animation-delay: 0.6s; }
+.stat-card:nth-child(7) { animation-delay: 0.7s; }
+
+@keyframes brandPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.value-card:hover,
+.stat-card:hover,
+.award-card:hover,
+.team-card:hover,
+.location-card:hover,
+.product-card:hover {
+    animation: brandPulse 0.3s ease;
+}
+
+/* Responsive Design for Brand Page */
+@media (max-width: 1024px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+    
+    .values-grid,
+    .stats-grid,
+    .awards-grid,
+    .team-grid,
+    .locations-grid,
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .brand-hero {
+        height: 50vh;
+        min-height: 400px;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .hero-actions .btn {
+        width: 200px;
+    }
+    
+    .brand-overview,
+    .brand-story,
+    .brand-mission,
+    .brand-vision,
+    .brand-values,
+    .brand-stats,
+    .brand-awards,
+    .brand-team,
+    .brand-locations,
+    .brand-products,
+    .brand-contact,
+    .brand-social {
+        padding: 3rem 0;
+    }
+    
+    .brand-overview h2,
+    .brand-story h2,
+    .brand-mission h2,
+    .brand-vision h2,
+    .brand-values h2,
+    .brand-stats h2,
+    .brand-awards h2,
+    .brand-team h2,
+    .brand-locations h2,
+    .brand-products h2,
+    .brand-contact h2,
+    .brand-social h2 {
+        font-size: 2rem;
+    }
+    
+    .values-grid,
+    .stats-grid,
+    .awards-grid,
+    .team-grid,
+    .locations-grid,
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .award-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .social-links {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .social-link {
+        width: 200px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .brand-hero {
+        height: 40vh;
+        min-height: 300px;
+    }
+    
+    .hero-content {
+        padding: 0 1rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+    }
+    
+    .brand-logo img {
+        max-width: 200px;
+    }
+    
+    .value-card,
+    .stat-card,
+    .award-card,
+    .team-card,
+    .location-card,
+    .product-card,
+    .contact-form {
+        padding: 1.5rem;
+    }
+    
+    .value-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .value-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .stat-value {
+        font-size: 2.5rem;
+    }
+    
+    .stat-label {
+        font-size: 1rem;
+    }
+    
+    .award-image img {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .award-content h3 {
+        font-size: 1.1rem;
+    }
+    
+    .member-image img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .member-info h3 {
+        font-size: 1.2rem;
+    }
+    
+    .member-position {
+        font-size: 1rem;
+    }
+    
+    .location-info h3 {
+        font-size: 1.1rem;
+    }
+    
+    .product-info h3 {
+        font-size: 1.1rem;
+    }
+    
+    .product-price {
+        font-size: 1.3rem;
+    }
+    
+    .contact-info h3,
+    .contact-form h3 {
+        font-size: 1.3rem;
+    }
+    
+    .contact-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .social-link {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .social-link i {
+        font-size: 1rem;
+    }
+}
+

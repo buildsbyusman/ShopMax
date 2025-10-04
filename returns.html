@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Returns & Exchanges - ShopMax</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .policy-hero {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        .policy-hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .policy-content {
+            padding: 4rem 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .policy-section {
+            margin-bottom: 3rem;
+        }
+        .policy-section h2 {
+            color: var(--primary-black);
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--primary-brown);
+            padding-bottom: 0.5rem;
+        }
+        .policy-section h3 {
+            color: var(--primary-black);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+        .policy-section p, .policy-section li {
+            color: var(--medium-gray);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        .policy-section ul {
+            padding-left: 2rem;
+        }
+        .return-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .return-step {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .return-step .step-number {
+            background: var(--primary-brown);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+        }
+        .return-step h4 {
+            color: var(--primary-black);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1><a href="index.html" style="color: var(--primary-brown); text-decoration: none;">ShopMax</a></h1>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products..." id="searchInput">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <a href="login.html" class="auth-link">Login</a>
+                    <a href="register.html" class="auth-link">Register</a>
+                    <div class="wishlist-icon" onclick="wishlistSidebar.open()">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count" id="wishlistCount">0</span>
+                    </div>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="cj-products.html">CJ Dropshipping</a></li>
+                    <li><a href="bundles.html">Bundles</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="deals.html">Deals</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="policy-hero">
+        <div class="container">
+            <h1>Returns & Exchanges</h1>
+            <p>Easy returns and exchanges to ensure your complete satisfaction.</p>
+        </div>
+    </section>
+
+    <section class="policy-content">
+        <div class="container">
+            <div class="policy-section">
+                <h2>Return Policy</h2>
+                <p>We want you to be completely satisfied with your purchase. If you're not happy with your order, you can return it within 30 days of delivery for a full refund or exchange.</p>
+                
+                <div class="return-steps">
+                    <div class="return-step">
+                        <div class="step-number">1</div>
+                        <h4>Contact Us</h4>
+                        <p>Email us or call to initiate your return</p>
+                    </div>
+                    <div class="return-step">
+                        <div class="step-number">2</div>
+                        <h4>Package Items</h4>
+                        <p>Pack items in original packaging with receipt</p>
+                    </div>
+                    <div class="return-step">
+                        <div class="step-number">3</div>
+                        <h4>Ship Back</h4>
+                        <p>Use provided return label or ship to our address</p>
+                    </div>
+                    <div class="return-step">
+                        <div class="step-number">4</div>
+                        <h4>Get Refund</h4>
+                        <p>Receive refund within 5-7 business days</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="policy-section">
+                <h2>Return Conditions</h2>
+                <p>To be eligible for a return, your item must be:</p>
+                <ul>
+                    <li>In the same condition you received it</li>
+                    <li>In the original packaging</li>
+                    <li>Returned within 30 days of delivery</li>
+                    <li>Accompanied by the original receipt or proof of purchase</li>
+                </ul>
+            </div>
+
+            <div class="policy-section">
+                <h2>Items That Cannot Be Returned</h2>
+                <ul>
+                    <li>Personalized or custom-made items</li>
+                    <li>Items damaged by misuse or normal wear</li>
+                    <li>Items without original packaging</li>
+                    <li>Digital products or downloadable content</li>
+                    <li>Items returned after 30 days</li>
+                </ul>
+            </div>
+
+            <div class="policy-section">
+                <h2>Exchange Policy</h2>
+                <p>We offer exchanges for items in different sizes, colors, or styles. Exchanges are subject to availability and must be requested within 30 days of delivery.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>Refund Process</h2>
+                <p>Once we receive your returned item, we will inspect it and notify you of the approval or rejection of your refund. If approved, your refund will be processed to your original payment method within 5-7 business days.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>Return Shipping</h2>
+                <p>Return shipping costs are the responsibility of the customer unless the return is due to our error or a defective product. We provide prepaid return labels for defective items.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2>Contact Us</h2>
+                <p>To initiate a return or exchange, please contact us:</p>
+                <p>
+                    Email: <a href="mailto:returns@shopmax.com">returns@shopmax.com</a><br>
+                    Phone: <a href="tel:+15551234567">+1 (555) 123-4567</a><br>
+                    Include your order number and reason for return
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ShopMax</h3>
+                    <p>Your trusted e-commerce platform for quality products at great prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="returns.html">Returns</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="support.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ShopMax. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+</body>
+</html>
